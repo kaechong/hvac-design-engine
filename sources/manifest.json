@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-07",
+  "source_repositories": [
+    {"repository": "kaechong/hvac-workspace", "commit": "b4ef38df9866b4773a2505689711f744a34e3726", "purpose": "計算核心、模板、標準範例及案例來源；尚未移植"},
+    {"repository": "kaechong/hvac-design-assistant", "commit": "a016cadf5f58f73fe05132647bd287e22bf78548", "purpose": "既有知識與技能參考；不自動繼承其指令"}
+  ],
+  "knowledge_folder_url": "https://drive.google.com/drive/folders/1V1bJDk6EKh6q7OXfF6C6JaxM2836Rziy",
+  "hap_evidence_folder_url": "https://drive.google.com/drive/folders/15Gh0L1K7OAxWRGwYybNk8LLa11E4UJdV",
+  "native_editable_hap_model_found": false,
+  "files": [
+    {
+      "name": "冷量計算書附圖_20231118.pdf",
+      "drive_id": "1MLpBrm9fxlVgTGqf458DRtSGLrYfHuHH",
+      "url": "https://drive.google.com/file/d/1MLpBrm9fxlVgTGqf458DRtSGLrYfHuHH/view",
+      "mime_type": "application/pdf",
+      "bytes": 1333020,
+      "pages": 1,
+      "sha256": "8ea50b7f17b46a39a31d33671112155395eca659ded3efb0360537e9153cbe33",
+      "review_status": "已確認可讀及文字內容；房間位置尚待圖面覆核",
+      "purpose": "Zone 1至13與房間位置對應"
+    },
+    {
+      "name": "慕拉士_冷量計算_1_20231118.pdf",
+      "drive_id": "16H7gYErqIay2HbWrDOTlAZMqefWBZza8",
+      "url": "https://drive.google.com/file/d/16H7gYErqIay2HbWrDOTlAZMqefWBZza8/view",
+      "mime_type": "application/pdf",
+      "bytes": 280574,
+      "pages": 1,
+      "sha256": "04290907faaf66b04e4aeb43cbf2fd0428c91506abefd7285bdc88e5514a29d5",
+      "review_status": "用戶認可為計算基準；已核對報表名稱與主要總量，未完成完整重算",
+      "purpose": "HAP v4.4 Morais GF AC系統負荷報表；原報表含10%裕量"
+    },
+    {
+      "name": "慕拉士_冷量計算_2_20231118.pdf",
+      "drive_id": "1EmE2AYiKq3HXbbkRZ8WEk6LM-CDnu0QR",
+      "url": "https://drive.google.com/file/d/1EmE2AYiKq3HXbbkRZ8WEk6LM-CDnu0QR/view",
+      "mime_type": "application/pdf",
+      "bytes": 992277,
+      "pages": 55,
+      "sha256": "c916d7ba004f568401d75ee6600a4c4cf12d3c9142dca53bd7b4bf690555b120",
+      "review_status": "用戶認可為計算基準；已確認55頁空間報表，未逐房重算",
+      "purpose": "HAP v4.4空間分項負荷及部分建築參數；原報表含10%裕量"
+    },
+    {
+      "name": "慕拉士服務中心-空調通風系統設計說明.pdf",
+      "drive_id": "1tkjH7dNNecR8_Yzrw5tuyhD4DL4_Fb1W",
+      "url": "https://drive.google.com/file/d/1tkjH7dNNecR8_Yzrw5tuyhD4DL4_Fb1W/view",
+      "mime_type": "application/pdf",
+      "bytes": 1141280,
+      "pages": 20,
+      "sha256": "7b8fa366da6d845e546f7d877128b320197fba154b96ebf1bb90a250e0f889b0",
+      "review_status": "來源封面標示初步方案；已作文字盤點，未作全頁視覺檢查",
+      "purpose": "工程範圍、設計條件及系統說明參考；不當作核准最終敘述"
+    }
+  ],
+  "format_reference": {
+    "repository": "kaechong/hvac-workspace",
+    "commit": "b4ef38df9866b4773a2505689711f744a34e3726",
+    "paths": [
+      "00_標準範例_standard_example/FOP_MACAU_VENETIAN-MACAU_06_20260808_v1.1.xlsx",
+      "00_標準範例_standard_example/FOP_MACAU_VENETIAN-MACAU_06_Design_Narrative_v1.1.docx"
+    ],
+    "approval": "用戶確認作格式及內容深度母本；工程數值不自動沿用"
+  }
+}

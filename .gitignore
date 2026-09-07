@@ -1,0 +1,30 @@
+# 憑證與環境
+.env
+.env.*
+!.env.example
+*token*.json
+*credentials*.json
+auth.json
+*.pem
+*.key
+
+# 執行狀態與本機快取
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+node_modules/
+*.log
+*.sqlite*
+*.db
+
+# 原始工程資料留在受控 Drive，Git 僅記錄索引與雜湊
+data/raw/
+data/local/
+outputs/
+*.pdf
+*.dwg
+*.dxf
+*.zip
+~$*
