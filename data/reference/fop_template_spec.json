@@ -1,0 +1,1016 @@
+{
+  "schema_version": 1,
+  "source_files": [
+    {
+      "name": "FOP_MACAU_VENETIAN-MACAU_06_20260808_v1.1.xlsx",
+      "sha256": "807e4227d5bfa3db751adc7fb562812095d18c21db940ad810994ba4116b0b42"
+    },
+    {
+      "name": "FOP_MACAU_VENETIAN-MACAU_06_Design_Narrative_v1.1.docx",
+      "sha256": "eaa9123ac7fbccf36452265787018a167f3a42ad2c327286377b31b8a3d2f8e8"
+    }
+  ],
+  "sheets": [
+    {
+      "name": "建築參數",
+      "rows": 7,
+      "columns": 9,
+      "headers": [
+        "1. 房間編號\n(Room ID)",
+        "2. 房間名稱\n(Room Name)",
+        "3. 樓層\n(Level)",
+        "4. 面積\nArea (m²)",
+        "5. 淨高\nHeight (m)",
+        "6. 體積\nVolume (m³)",
+        "7. 定員人數\n(People)",
+        "8. 空間用途\n(Usage Category)",
+        "9. 朝向\n(Orientation)"
+      ],
+      "merges": [
+        "A1:I1",
+        "A2:I2"
+      ],
+      "column_widths": {
+        "A": 73,
+        "B": 25,
+        "C": 12,
+        "D": 15,
+        "E": 14,
+        "F": 15,
+        "H": 29,
+        "I": 19,
+        "J": 8.71
+      },
+      "font": "Arial",
+      "font_size": 10,
+      "header_fill": "FFD9D9D9",
+      "body_border": "thin",
+      "formulas": {
+        "F5": "=D5*E5",
+        "F6": "=D6*E6",
+        "D7": "=SUM(D5:D6)",
+        "F7": "=SUM(F5:F6)",
+        "G7": "=SUM(G5:G6)"
+      }
+    },
+    {
+      "name": "通風計算",
+      "rows": 7,
+      "columns": 15,
+      "headers": [
+        "1. 房間編號\n(Room ID)",
+        "2. 房間名稱\n(Room Name)",
+        "3. 樓層\n(Level)",
+        "4. 面積\nArea (m²)",
+        "5. 淨高\nHeight (m)",
+        "6. 體積\nVolume (m³)",
+        "7. 房間用途\nRoom Usage",
+        "8. 換氣次數\nRef. ACH",
+        "9. 排風量\nReq. EA (CMH)",
+        "10. 排風量\nReq. EA (L/s)",
+        "11. 預計人數\nPeople",
+        "12. 人均鮮風量\nRef. FA Rate (L/s/p)",
+        "13. 鮮風量 Vbz\nReq. FA (L/s)",
+        "14. 本工程排風設備\n(Exhaust Fan ID)",
+        "15. 機外靜壓\nCalc. ESP (Pa)"
+      ],
+      "merges": [
+        "A1:O1",
+        "A2:O2"
+      ],
+      "column_widths": {
+        "A": 65,
+        "B": 15,
+        "C": 12,
+        "D": 15,
+        "E": 14,
+        "F": 15,
+        "G": 29,
+        "H": 12,
+        "I": 17,
+        "K": 15,
+        "L": 24,
+        "M": 22,
+        "N": 20,
+        "O": 18,
+        "P": 8.71
+      },
+      "font": "Arial",
+      "font_size": 10,
+      "header_fill": "FFD9D9D9",
+      "body_border": "thin",
+      "formulas": {
+        "F5": "=D5*E5",
+        "I5": "=F5*H5",
+        "J5": "=I5/3.6",
+        "M5": "=(K5*3.8)+(0.6*D5)",
+        "F6": "=D6*E6",
+        "I6": "=F6*H6",
+        "J6": "=I6/3.6",
+        "M6": "=(K6*2.5)+(0.3*D6)",
+        "D7": "=SUM(D5:D6)",
+        "F7": "=SUM(F5:F6)",
+        "I7": "=SUM(I5:I6)",
+        "J7": "=SUM(J5:J6)",
+        "K7": "=SUM(K5:K6)",
+        "M7": "=SUM(M5:M6)"
+      }
+    },
+    {
+      "name": "冷熱負荷計算",
+      "rows": 7,
+      "columns": 11,
+      "headers": [
+        "1. 房間編號\n(Room ID)",
+        "2. 房間名稱\n(Room Name)",
+        "3. 面積\nArea (m²)",
+        "4. 圍護傳熱\nQ_env (kW)",
+        "5. 內部發熱\nQ_int (kW)",
+        "6. 鮮風冷負荷\nQ_fa (kW)",
+        "7. 總冷負荷\nQ_cooling (kW)",
+        "8. 總熱負荷\nQ_heating (kW)",
+        "9. 冷負荷密度\nDensity (W/m²)",
+        "10. 建議設備噸數\nCapacity (RT)",
+        "11. 本工程設備對映 (Project Equipment)"
+      ],
+      "merges": [
+        "A2:K2",
+        "A1:K1"
+      ],
+      "column_widths": {
+        "A": 55,
+        "B": 15,
+        "G": 18,
+        "J": 17,
+        "K": 42,
+        "L": 8.71
+      },
+      "font": "Arial",
+      "font_size": 10,
+      "header_fill": "FFD9D9D9",
+      "body_border": "thin",
+      "formulas": {
+        "G5": "=SUM(D5:F5)",
+        "I5": "=G5*1000/C5",
+        "J5": "=G5/3.517",
+        "G6": "=SUM(D6:F6)",
+        "I6": "=G6*1000/C6",
+        "J6": "=G6/3.517",
+        "C7": "=SUM(C5:C6)",
+        "D7": "=SUM(D5:D6)",
+        "E7": "=SUM(E5:E6)",
+        "F7": "=SUM(F5:F6)",
+        "G7": "=SUM(G5:G6)",
+        "H7": "=SUM(H5:H6)",
+        "I7": "=G7*1000/C7",
+        "J7": "=G7/3.517"
+      }
+    }
+  ],
+  "docx": {
+    "paragraphs": [
+      {
+        "paragraph_index": 0,
+        "text": "機械通風和空調系統設計說 明 及 解 釋 備 忘 錄",
+        "font_sizes_half_points": [
+          "32"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 1,
+        "text": "澳門威尼斯人 - FOP MACAU VENETIAN-MACAU 06 (PUMA Shop)專案編號：FOP-06-MVAC | 版本：正式核准版 v1.1 | 日期：2026年8月8日",
+        "font_sizes_half_points": [
+          "24"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 2,
+        "text": "1 – 工 程 範 圍 (Project Scope)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 3,
+        "text": "1.1 項目名稱：澳門威尼斯人 - FOP MACAU VENETIAN-MACAU 06 (PUMA Shop) A&A 改建工程",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 4,
+        "text": "1.2 項目地點：澳門威尼斯人購物中心 (The Venetian Macao) Shop FOP_MACAU_VENETIAN-MACAU_06",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 5,
+        "text": "1.3 工程範圍與邊界：本工程為澳門威尼斯人 PUMA 店舖 (Shop FOP-06) 之內部裝修與機電改建工程（A&A工程）。店舖基準總建築面積為 109.00 m²，包含 PUMA 銷售區與倉庫兩個獨立功能空間。本設計說明涵蓋室內機電空調系統、機械通風排風系統及相關電力控制規範。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 7,
+        "text": "2 – 設計法規和標準 (Design Regulations & Standards)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 8,
+        "text": "2.1 澳門特別行政區法規及標準 (MSAR Regulations)",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 9,
+        "text": "裝置、材料以及設備應總體符合下列現行的MSAR標準規範、準則以及慣例規範的相關要求：",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 10,
+        "text": "• 澳門土地工務局 (DSSCU)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 11,
+        "text": "• 澳門消防局 (CB)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 12,
+        "text": "• 第15/2021號法律 – 樓宇及場地防火安全的法律制度",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 13,
+        "text": "• 第39/2022號行政法規 – 樓宇及場地防火安全技術規章",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 14,
+        "text": "• 澳門電力股份有限公司(CEM)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 15,
+        "text": "• 市政署(IAM)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 16,
+        "text": "• 環境保護局 (DSPA)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 17,
+        "text": "• 澳門自來水股份有限公司(SAAM)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 18,
+        "text": "該裝置應完全符合澳門土地工務局(DSSCU)制定的所有法定法規和立法。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 19,
+        "text": "2.2 國際標準及守則 (International Standards & Codes)",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 20,
+        "text": "安裝，材料和設備應符合法定機關、機構和組織頒布的標準守則、指引和其他文件的最新要求：",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 21,
+        "text": "• BSI - British Standards Institution",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 22,
+        "text": "• CIBSE - Chartered Institution of Building Services Engineers",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 23,
+        "text": "• IMC - International Mechanical Code",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 24,
+        "text": "• ISO - International Standards Organization",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 25,
+        "text": "• ASHRAE - American Society of Heating, Refrigerating & Air-Conditioning Engineers",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 26,
+        "text": "• ASME - American Society of Mechanical Engineers",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 27,
+        "text": "• SMACNA - Sheet Metal and Air Conditioning Contractor’s National Association, Inc.",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 28,
+        "text": "• ARI - Air-conditioning and Refrigeration Institute",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 29,
+        "text": "• HVCA - Heating and Ventilating Contractor’s Association",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 30,
+        "text": "• ASTM - American Society on Testing and Materials",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 31,
+        "text": "• NFPA - National Fire Protection Association",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 32,
+        "text": "• UL - Underwriters' Laboratories, Inc.",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 33,
+        "text": "• EN - European Standard",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 34,
+        "text": "• BS - British Standard",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 35,
+        "text": "• DIN - German Standard",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 36,
+        "text": "• JIS - Japanese Industrial Standards",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 37,
+        "text": "3 – 設計概念及技術要求 (Design Concepts & Technical Requirements)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 38,
+        "text": "3.1 室外條件與空間參數 (Outdoor Conditions & Space Parameters)",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 39,
+        "text": "• 室外設計氣象條件 (Outdoor Design Temperature)：",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 40,
+        "text": "• 夏季 (Summer): 32.9°C乾球 / 27°C濕球 (32.9°C dB / 27°C wB)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 41,
+        "text": "• 冬季 (Winter): 7.2°C乾球 / 3.9°C濕球 (7.2°C dB / 3.9°C wB)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 42,
+        "text": "• 室內空間設計參數與負荷摘要 (Space Parameters & Load Summary)：",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 43,
+        "text": "3.2 機械通風及空調系統敘述 (MVAC System Description)",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 44,
+        "text": "3.2.1 空調系統與中央冰水規範 (Chilled Water Provision)",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 45,
+        "text": "本工程空調系統冷源採用主大樓中央冰水供回水系統 (Chilled Water Supply & Return, CHWS&R)。室內空調末端採用天花板隱蔽式風機盤管機組 (FCU)，利用中央冰水進行熱交換冷卻，處理室內顯熱與潛熱負荷，無獨立冷媒機組。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 46,
+        "text": "3.2.2 機械通風與新排風規範 (Mechanical Ventilation, Fresh Air & Exhaust Air)",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 47,
+        "text": "除非澳門第39/2022號法規法令另有規定，通風值應遵循 ASHRAE 62.1-2019 標準 - 呼吸區域的最小通風值（表 6-1）和最小排氣值（表 6-2）。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 48,
+        "text": "有關設備應滿足經第9 / 2019號法律修改的第8 /2014號法律《預防和控制環境噪音》之規定，否則需要採用必要之消聲設備以滿足要求。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 49,
+        "text": "• 鮮風 (Fresh Air) 供應原則：店舖鮮風由主大樓中央鮮風管道接口引進室內。依據 ASHRAE 62.1-2013 Vbz 標準計算，銷售區鮮風需求 128.60 L/s，倉庫鮮風需求 7.00 L/s，店舖總鮮風需求量為 135.60 L/s (488.16 CMH)。大樓中央預處理新風機 (PAU) 屬主大樓公共設施，本裝修工程合約範圍不包含 PAU 機組本體之採購或安裝。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 50,
+        "text": "• 排風 (Exhaust Air) 必要性與設備編號：PUMA 銷售區 (RM-PUMA-01) 屬舒適性零售空間，不設強制機械排風 (0 CMH)，氣流經 FCU 循環並以自然溢流方式運作。倉庫 (RM-PUMA-02) 設有本工程專屬小型排風機 (EAF-GF-01)，排風量 108 CMH (2 ACH)，確保倉內異味與濕氣及時抽出。全店僅此一台排風機，設備編號定為 EAF-GF-01。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 51,
+        "text": "3.2.3 樓層位置與系統配置矩陣表",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 52,
+        "text": "3.3 空調及通風系統設備技術規範",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 53,
+        "text": "• 天花板安裝設備：風機盤管機組 (FCU) 及小型風扇 (EAF) 必須安裝於適當尺寸之螺紋吊桿及帶橡膠隔振器之支架上，以防振動傳遞至室內天花或牆體。支架物料須進行熱鍍鋅或防腐處理。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 54,
+        "text": "• 軟連接：風管與風機盤管/風機進出口之間必須採用柔性軟接管 (Flexible Connector) 連接，防止設備運轉振動傳遞至風喉網絡。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 55,
+        "text": "• 空調末端設備：風機盤管機組 (FCU) 必需為國際知名品牌，配有高效熱交換盤管、低噪音風扇馬達及凝結水集水盤。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 56,
+        "text": "• 風管與閘閥：風管材料及安裝程序須符合 DW144: 2016、SMACNA 及澳門現行法規。新風進風管道應設置管道式煙霧探測器和電動防火防煙閘閥。風管穿過樓板和防火牆時，需設置電動防煙防火閘閥（配備檢修口），並由火災自動探測器連動啟動。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 57,
+        "text": "• 管道保溫物料：冰水供回水管路及凝結水排水管路保溫材料應採用阻燃型橡膠海綿/彈性橡膠保溫管，並符合澳門消防法規。風管保溫物料須採用具有雙面增強鋁箔防潮層之玻璃棉/橡膠保溫層，火焰蔓延與煙霧密度指數須符合澳門消防局及相關法規要求。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 58,
+        "text": "3.4 供電及控制系統",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 59,
+        "text": "• 空調和通風設備的動力和控制的所有電氣材料應完全符合本項目電氣技術規範。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 60,
+        "text": "• 空調設備供電源由店舖電力配電箱供給。需提供隔離開關，電纜及控制線路。風機盤管機組採用熔線插座 (Fused Socket) 或專用電源連接器。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 61,
+        "text": "• 溫度控制系統：由溫控器 (Thermostat) 與電動冰水二通閥/三通閥組成，根據室內設定溫度自動調節冰水流量，將室內條件維持於設計範圍。溫控器安裝於室內牆面方便操作位置。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 62,
+        "text": "• 火警連動模式：當收到消防火警信號或風管內防火防煙閥關閉時，對應風扇供電源需立即切斷停止運作。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 63,
+        "text": "4 – 其 他 要 求 (Other Requirements)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 64,
+        "text": "設備及材料通用要求：",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 65,
+        "text": "• a) 按質量控制手冊或質量控制單位要求提供自檢記錄/第三方測試報告；",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 66,
+        "text": "• b) 提交設備為五年內的認可實體檢驗報告，保證執行現行使用標準及近期內該產品的質量；",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 67,
+        "text": "• c) 提供系統硬件使用手冊，系統操作手冊，指引手冊，維修保養手冊及維保人員資質要求等文件說明。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 68,
+        "text": "• d) 提交相關專業範疇的註冊工程師的資料及責任聲明書，以及所有技術文件需由澳門土地工務局相關專業範疇的註冊工程師簽署。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 69,
+        "text": "• e) 提交近年的本地工程履歷（Job Reference）。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 70,
+        "text": "5 – 重 要 項 目 的 核 實 (Verification of Important Items)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 72,
+        "text": "6 – 最 終 解 釋 及 說 明 (Final Explanation)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 73,
+        "text": "所有安裝均須符合所有提及的規章，為完善安裝工程，須選擇最好的安裝程序。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 74,
+        "text": "7 – 遺 漏 爭 議 (Omission Disputes)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 75,
+        "text": "在本設計方案的規格說明內未曾提到的項目及規章均須按照澳門現行法律規定。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      }
+    ],
+    "chapters": [
+      {
+        "paragraph_index": 2,
+        "text": "1 – 工 程 範 圍 (Project Scope)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 7,
+        "text": "2 – 設計法規和標準 (Design Regulations & Standards)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 37,
+        "text": "3 – 設計概念及技術要求 (Design Concepts & Technical Requirements)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 63,
+        "text": "4 – 其 他 要 求 (Other Requirements)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 70,
+        "text": "5 – 重 要 項 目 的 核 實 (Verification of Important Items)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 72,
+        "text": "6 – 最 終 解 釋 及 說 明 (Final Explanation)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 74,
+        "text": "7 – 遺 漏 爭 議 (Omission Disputes)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "table_index": 0,
+        "rows": [
+          [
+            "房間編號",
+            "房間名稱",
+            "樓層",
+            "面積 (m²)",
+            "淨高 (m)",
+            "空間用途"
+          ],
+          [
+            "RM-PUMA-01",
+            "PUMA 銷售區",
+            "GF",
+            "94.00",
+            "3.60",
+            "Retail / Sportswear Sales"
+          ],
+          [
+            "RM-PUMA-02",
+            "倉庫",
+            "GF",
+            "15.00",
+            "3.60",
+            "Storage / Stock Room"
+          ]
+        ],
+        "border_styles": [],
+        "border_colors": []
+      },
+      {
+        "table_index": 1,
+        "rows": [
+          [
+            "房間名稱",
+            "面積(m²)",
+            "設計人數",
+            "排風需求(CMH)",
+            "鮮風需求 Vbz(L/s)",
+            "冷負荷(kW)",
+            "負荷密度(W/m²)",
+            "本工程空調通風配置"
+          ],
+          [
+            "PUMA 銷售區",
+            "94.00",
+            "19人",
+            "0 CMH (0 ACH)",
+            "128.60 L/s",
+            "19.74 kW",
+            "210.00",
+            "風機盤管 FCU-GF-01 (接大樓鮮風管)"
+          ],
+          [
+            "倉庫",
+            "15.00",
+            "1人",
+            "108.00 (2 ACH)",
+            "7.00 L/s",
+            "2.25 kW",
+            "150.00",
+            "風機盤管 FCU-GF-02 & 排風機 EAF-GF-01"
+          ],
+          [
+            "店舖總計 (Total)",
+            "109.00",
+            "20人",
+            "108.00 CMH",
+            "135.60 L/s",
+            "21.99 kW",
+            "201.74",
+            "室內 FCU (2台) & 專屬排風機 EAF-GF-01 (1台)"
+          ]
+        ],
+        "border_styles": [],
+        "border_colors": []
+      },
+      {
+        "table_index": 2,
+        "rows": [
+          [
+            "樓層",
+            "區域名稱",
+            "空間用途",
+            "室內空調設備 (FCU)",
+            "大樓鮮風接口",
+            "本工程排風設備 (EAF)"
+          ],
+          [
+            "GF",
+            "PUMA 銷售區",
+            "Retail Sales Area",
+            "天花板隱蔽風機盤管 (FCU-GF-01)",
+            "接入主大樓鮮風管",
+            "無 (自然溢流/回風)"
+          ],
+          [
+            "GF",
+            "倉庫",
+            "Stock Room / Storage",
+            "天花板隱蔽風機盤管 (FCU-GF-02)",
+            "接入主大樓鮮風管",
+            "小型排風機 (EAF-GF-01)"
+          ]
+        ],
+        "border_styles": [],
+        "border_colors": []
+      },
+      {
+        "table_index": 3,
+        "rows": [
+          [
+            "項次",
+            "內容",
+            "符合 (是)",
+            "不符合"
+          ],
+          [
+            "1",
+            "設計說明書、各類圖則間的資訊均協調一致",
+            "是",
+            ""
+          ],
+          [
+            "2",
+            "空調通風設備及其管道沒有設於隔火室或逃生樓梯內",
+            "是",
+            ""
+          ],
+          [
+            "3",
+            "空調設備、鮮/排風口的佈置不會對公眾(或他人)造成不良影響",
+            "是",
+            ""
+          ],
+          [
+            "4",
+            "空調機組的安裝符合消防安全條例第39/2022行政法規和行政指南01/DSSOPT/2009的要求",
+            "是",
+            ""
+          ],
+          [
+            "5",
+            "當管道穿過防火隔離構件時，消防安全條例第39/2022號行政法規要求的防火間隔已安裝",
+            "是",
+            ""
+          ],
+          [
+            "6",
+            "安裝管道或設備後的淨空高度已滿足第4/80/M 號法令《都市房屋建築總章程》",
+            "是",
+            ""
+          ]
+        ],
+        "border_styles": [],
+        "border_colors": []
+      }
+    ],
+    "page_twips": {
+      "h": "15840",
+      "w": "12240",
+      "orient": "portrait"
+    },
+    "margin_twips": {
+      "bottom": "1440",
+      "top": "1440",
+      "left": "1440",
+      "right": "1440",
+      "header": "720",
+      "footer": "720"
+    },
+    "extraction_note": "Google w:sdt content controls contain Chinese text; extraction includes all descendant w:t, not only python-docx paragraph.text."
+  }
+}

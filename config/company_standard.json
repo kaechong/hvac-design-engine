@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "standard_id": "TRUSTBASE-HVAC-20260907",
+  "version": "0.1.0-review",
+  "overall_status": "partially_approved",
+  "approved_by": "user",
+  "approval_date": "2026-09-07",
+  "approved_rules": {
+    "fresh_air_lps_per_person": 10.0,
+    "cooling_safety_factor": 1.15,
+    "safety_factor_scope": "final_raw_cooling_load_once",
+    "fresh_air_safety_factor": 1.0,
+    "exhaust_safety_factor": 1.0,
+    "output_method_label_required": false,
+    "internal_method_provenance_required": true,
+    "reference_template": "FOP_MACAU_VENETIAN-MACAU_06_v1.1",
+    "historical_calculation_reference": "Morais_HAP_20231118"
+  },
+  "unapproved_defaults_enabled": false,
+  "proposals": [
+    {
+      "id": "design_conditions",
+      "status": "requires_user_review",
+      "title_zh": "一般辦公室室內外設計條件",
+      "proposal_zh": "一般辦公室先以室內23°C、55%RH及澳門夏季室外34°CDB／28°CWB作公司標準候選；基準對帳仍使用原報表逐月條件。",
+      "evidence_zh": "慕拉士設計說明第4至5頁有34／28°C、辦公23±2°C；55%RH及其他工況在既有知識中不同，仍須核准。",
+      "runtime_default": null
+    },
+    {
+      "id": "internal_gains",
+      "status": "requires_user_review",
+      "title_zh": "一般辦公室內部發熱備用值",
+      "proposal_zh": "實際人數及設備資料優先；缺資料時可否採辦公人員75W顯熱／60W潛熱、照明15W/m²、設備25W/m²作明示假設，需用戶核准。零售與特殊用途不可沿用。",
+      "evidence_zh": "既有主知識庫通用office參數；慕拉士為不同使用強度，不可按案例40／45W/m²泛化。",
+      "runtime_default": null
+    },
+    {
+      "id": "occupancy_and_schedule",
+      "status": "requires_project_input",
+      "title_zh": "人數及運行排程",
+      "proposal_zh": "以座位、房間用途及業主要求確認人數，提供逐時人員／照明／設備／空調運行排程；不默認每房24小時滿載。",
+      "runtime_default": null
+    },
+    {
+      "id": "exhaust_rules",
+      "status": "requires_user_review",
+      "title_zh": "一般衛生間及其他空間排風",
+      "proposal_zh": "一般衛生間15ACH作候選，其他用途按污染、濕氣與補風需求整理；不把全部倉庫或茶水間自動判定必須有獨立排風機。",
+      "evidence_zh": "慕拉士設計說明第5頁及既有主知識庫有廁所15ACH；適用條件仍須核准。",
+      "runtime_default": null
+    },
+    {
+      "id": "system_and_equipment_conditions",
+      "status": "requires_project_input",
+      "title_zh": "冷源、新風處理及設備工況",
+      "proposal_zh": "每項目確認冷凍水或DX系統、新風供應責任與進出風狀態、室內潛熱分工、設備實際額定性能及所需靜壓。缺值不選定型號。",
+      "runtime_default": null
+    }
+  ]
+}

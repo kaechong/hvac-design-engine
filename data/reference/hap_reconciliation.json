@@ -1,0 +1,1167 @@
+{
+  "schema_version": 1,
+  "provenance": [
+    {
+      "file": "data/local/legacy/01_knowledge/HAP_Ref_Morais.json",
+      "sha256": "d17d85efff7f392449e388dabe997379c94c3a2cad2cc70523e0fc0901072422"
+    },
+    {
+      "file": "data/local/legacy/04_projects/2026_Morais_GF_1F/building_params.json",
+      "sha256": "17c8f3ede6a9c26fd28cf4ec3b08fbce15031f5199b42766e28b0eb0573c4817"
+    },
+    {
+      "file": "data/local/legacy/04_projects/2026_Morais_GF_1F/calc_results.json",
+      "sha256": "3b8a5b5e5fb1a34586fc5e629a7adc8bb66e03fa04e5e2a5ca1da01d4009979f"
+    }
+  ],
+  "legacy_reference_comparison": [
+    {
+      "reference_id": "hap-room-001",
+      "name": "24Hr Self-Serv. Area",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-002",
+      "name": "CN Locker & Pantry",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-003",
+      "name": "CN Notarized Doc",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-004",
+      "name": "CN Notory",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-005",
+      "name": "CN Notory Counter",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-006",
+      "name": "CN Signing Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-007",
+      "name": "CN Storage",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-008",
+      "name": "CN Storage Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-009",
+      "name": "CN Studio",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-010",
+      "name": "CN Toilet(Female)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-011",
+      "name": "CN Toilet(male)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-012",
+      "name": "Data Center Support",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-013",
+      "name": "ELV Room(Large)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-014",
+      "name": "DSF Internal Office",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-015",
+      "name": "DSF Pantry",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-016",
+      "name": "DSF Counter & Public",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-017",
+      "name": "DSF Storage Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-018",
+      "name": "DSF Supervisor",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-019",
+      "name": "DSI Internal Office(1)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-020",
+      "name": "DSI Internal Office(2)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-021",
+      "name": "DSI Pantry&Locker",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-022",
+      "name": "DSI Counter",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-023",
+      "name": "DSI Storage Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-024",
+      "name": "DSI Storage Room(1)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-025",
+      "name": "DSI Storage Room(2)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-026",
+      "name": "DSI Storage Room(3)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-027",
+      "name": "E-Government Display",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-028",
+      "name": "FSM Office",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-029",
+      "name": "FSM Detention Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-030",
+      "name": "FSM Pantry",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-031",
+      "name": "FSM Counter & Public",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-032",
+      "name": "FSS Counter & Public",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-033",
+      "name": "FSS Supervisor",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-034",
+      "name": "FSS Vault",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-035",
+      "name": "Second Entry & Counter",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-036",
+      "name": "Second Entry Public",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-037",
+      "name": "Nursing Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-038",
+      "name": "Toilet(Female)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-039",
+      "name": "Toilet(Male)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-040",
+      "name": "Toilet(Parent-Child)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-041",
+      "name": "Main Entry & Public",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-042",
+      "name": "Negotiation Room(1)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-043",
+      "name": "Negotiation Room(2)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-044",
+      "name": "PR Lounge",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-045",
+      "name": "Public Area",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-046",
+      "name": "Public Photocopy Area",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-047",
+      "name": "Rest / Counter Area",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-048",
+      "name": "Security Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-049",
+      "name": "ELV Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-050",
+      "name": "Staff Corridor",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-051",
+      "name": "Staff Toilet(Female)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-052",
+      "name": "Staff Toilet(male)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-053",
+      "name": "Utility Room",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-054",
+      "name": "Security Room (CCTV)",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    },
+    {
+      "reference_id": "hap-room-055",
+      "name": "Security Room Locker",
+      "match_count": 1,
+      "differences": [],
+      "status": "exact_name_values_equal"
+    }
+  ],
+  "building_mapping": [
+    {
+      "reference_id": "hap-room-001",
+      "name": "24Hr Self-Serv. Area",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-01",
+          "name": "24小時自助服務區",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 255.43,
+          "area_difference_m2": 16.430000000000007,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 13,
+          "legacy_cooling_kW": 30.969,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-002",
+      "name": "CN Locker & Pantry",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-003",
+      "name": "CN Notarized Doc",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-04",
+          "name": "公證文書辦公室(6人)",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 77.14,
+          "area_difference_m2": -0.8599999999999994,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 4,
+          "legacy_cooling_kW": 9.405,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-004",
+      "name": "CN Notory",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-14",
+          "name": "公證員室",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 25.11,
+          "area_difference_m2": 0.10999999999999943,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 2.846,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-005",
+      "name": "CN Notory Counter",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-006",
+      "name": "CN Signing Room",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-11",
+          "name": "簽契室",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 29.83,
+          "area_difference_m2": -0.1700000000000017,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 15,
+          "legacy_cooling_kW": 13.217,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-007",
+      "name": "CN Storage",
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "room_id": "RM-GF-06",
+          "name": "儲存室",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 65.67,
+          "area_difference_m2": 56.67,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 5.714,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-GF-15",
+          "name": "儲存室2",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 22.28,
+          "area_difference_m2": 13.280000000000001,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 2.026,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-GF-52",
+          "name": "儲存室3",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 4.5,
+          "area_difference_m2": -4.5,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 0.514,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-1F-18",
+          "name": "儲存室",
+          "floor": "1F",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": false,
+          "legacy_area_m2": 23.17,
+          "area_difference_m2": 14.170000000000002,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 2.101,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-1F-25",
+          "name": "儲存室2",
+          "floor": "1F",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": false,
+          "legacy_area_m2": 10.88,
+          "area_difference_m2": 1.8800000000000008,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.057,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-1F-28",
+          "name": "儲存室3",
+          "floor": "1F",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": false,
+          "legacy_area_m2": 8.06,
+          "area_difference_m2": -0.9399999999999995,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 0.817,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-008",
+      "name": "CN Storage Room",
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "room_id": "RM-GF-06",
+          "name": "儲存室",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 65.67,
+          "area_difference_m2": -0.3299999999999983,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 5.714,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-GF-15",
+          "name": "儲存室2",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 22.28,
+          "area_difference_m2": -43.72,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 2.026,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-GF-52",
+          "name": "儲存室3",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 4.5,
+          "area_difference_m2": -61.5,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 0.514,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-1F-18",
+          "name": "儲存室",
+          "floor": "1F",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": false,
+          "legacy_area_m2": 23.17,
+          "area_difference_m2": -42.83,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 2.101,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-1F-25",
+          "name": "儲存室2",
+          "floor": "1F",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": false,
+          "legacy_area_m2": 10.88,
+          "area_difference_m2": -55.12,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.057,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-1F-28",
+          "name": "儲存室3",
+          "floor": "1F",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": false,
+          "legacy_area_m2": 8.06,
+          "area_difference_m2": -57.94,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 0.817,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-009",
+      "name": "CN Studio",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-17",
+          "name": "工作室",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 20.84,
+          "area_difference_m2": -0.16000000000000014,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 2.484,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-010",
+      "name": "CN Toilet(Female)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-011",
+      "name": "CN Toilet(male)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-012",
+      "name": "Data Center Support",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-013",
+      "name": "ELV Room(Large)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-014",
+      "name": "DSF Internal Office",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-015",
+      "name": "DSF Pantry",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-016",
+      "name": "DSF Counter & Public",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-017",
+      "name": "DSF Storage Room",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-018",
+      "name": "DSF Supervisor",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-019",
+      "name": "DSI Internal Office(1)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-020",
+      "name": "DSI Internal Office(2)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-021",
+      "name": "DSI Pantry&Locker",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-022",
+      "name": "DSI Counter",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-023",
+      "name": "DSI Storage Room",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-024",
+      "name": "DSI Storage Room(1)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-025",
+      "name": "DSI Storage Room(2)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-026",
+      "name": "DSI Storage Room(3)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-027",
+      "name": "E-Government Display",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-02",
+          "name": "電子政務展示區",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 134.27,
+          "area_difference_m2": -14.72999999999999,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 7,
+          "legacy_cooling_kW": 16.398,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-028",
+      "name": "FSM Office",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-029",
+      "name": "FSM Detention Room",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-030",
+      "name": "FSM Pantry",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-031",
+      "name": "FSM Counter & Public",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-032",
+      "name": "FSS Counter & Public",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-033",
+      "name": "FSS Supervisor",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-034",
+      "name": "FSS Vault",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-035",
+      "name": "Second Entry & Counter",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-036",
+      "name": "Second Entry Public",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-037",
+      "name": "Nursing Room",
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "room_id": "RM-GF-35",
+          "name": "哺乳室",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 11.6,
+          "area_difference_m2": -0.40000000000000036,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.698,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-1F-24",
+          "name": "哺乳室",
+          "floor": "1F",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": false,
+          "legacy_area_m2": 13.56,
+          "area_difference_m2": 1.5600000000000005,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.865,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-038",
+      "name": "Toilet(Female)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-039",
+      "name": "Toilet(Male)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-040",
+      "name": "Toilet(Parent-Child)",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-41",
+          "name": "親子廁所",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 7.92,
+          "area_difference_m2": -0.08000000000000007,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 0,
+          "legacy_cooling_kW": 0.673,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-041",
+      "name": "Main Entry & Public",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-042",
+      "name": "Negotiation Room(1)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-043",
+      "name": "Negotiation Room(2)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-044",
+      "name": "PR Lounge",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-26",
+          "name": "公關休息室",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 13.72,
+          "area_difference_m2": -0.27999999999999936,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.878,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-045",
+      "name": "Public Area",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-046",
+      "name": "Public Photocopy Area",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-34",
+          "name": "公眾影印區",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 11.79,
+          "area_difference_m2": 1.7899999999999991,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.714,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-047",
+      "name": "Rest / Counter Area",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-048",
+      "name": "Security Room",
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "room_id": "RM-GF-31",
+          "name": "保安室1",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 12.22,
+          "area_difference_m2": 0.22000000000000064,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.751,
+          "comparison_allowed": false
+        },
+        {
+          "room_id": "RM-GF-33",
+          "name": "保安室2",
+          "floor": "GF",
+          "reason": "translation_candidate_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 11.79,
+          "area_difference_m2": -0.21000000000000085,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.714,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-049",
+      "name": "ELV Room",
+      "status": "candidate_pending_geometry_review",
+      "candidates": [
+        {
+          "room_id": "RM-GF-29",
+          "name": "ELV Room",
+          "floor": "GF",
+          "reason": "exact_name_only",
+          "floor_scope_compatible": true,
+          "legacy_area_m2": 12.44,
+          "area_difference_m2": 1.4399999999999995,
+          "legacy_input_people": null,
+          "legacy_calculated_people": 1,
+          "legacy_cooling_kW": 1.189,
+          "comparison_allowed": false
+        }
+      ]
+    },
+    {
+      "reference_id": "hap-room-050",
+      "name": "Staff Corridor",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-051",
+      "name": "Staff Toilet(Female)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-052",
+      "name": "Staff Toilet(male)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-053",
+      "name": "Utility Room",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-054",
+      "name": "Security Room (CCTV)",
+      "status": "unmapped",
+      "candidates": []
+    },
+    {
+      "reference_id": "hap-room-055",
+      "name": "Security Room Locker",
+      "status": "unmapped",
+      "candidates": []
+    }
+  ],
+  "unmapped_legacy_room_ids": [
+    "RM-GF-03",
+    "RM-GF-05",
+    "RM-GF-07",
+    "RM-GF-08",
+    "RM-GF-09",
+    "RM-GF-10",
+    "RM-GF-12",
+    "RM-GF-13",
+    "RM-GF-16",
+    "RM-GF-19",
+    "RM-GF-20",
+    "RM-GF-21",
+    "RM-GF-22",
+    "RM-GF-23",
+    "RM-GF-24",
+    "RM-GF-25",
+    "RM-GF-28",
+    "RM-GF-30",
+    "RM-GF-32",
+    "RM-GF-37",
+    "RM-GF-38",
+    "RM-GF-39",
+    "RM-GF-40",
+    "RM-GF-42",
+    "RM-GF-43",
+    "RM-GF-44",
+    "RM-GF-45",
+    "RM-GF-46",
+    "RM-GF-47",
+    "RM-GF-48",
+    "RM-GF-49",
+    "RM-GF-50",
+    "RM-GF-51",
+    "RM-GF-53",
+    "RM-GF-55",
+    "RM-1F-01",
+    "RM-1F-02",
+    "RM-1F-03",
+    "RM-1F-04",
+    "RM-1F-05",
+    "RM-1F-06",
+    "RM-1F-07",
+    "RM-1F-08",
+    "RM-1F-09",
+    "RM-1F-10",
+    "RM-1F-11",
+    "RM-1F-12",
+    "RM-1F-13",
+    "RM-1F-14",
+    "RM-1F-15",
+    "RM-1F-16",
+    "RM-1F-17",
+    "RM-1F-19",
+    "RM-1F-20",
+    "RM-1F-21",
+    "RM-1F-22",
+    "RM-1F-23",
+    "RM-1F-26",
+    "RM-1F-27",
+    "RM-1F-29",
+    "RM-1F-30",
+    "RM-1F-31",
+    "RM-GF-58",
+    "RM-GF-59"
+  ],
+  "counts": {
+    "pdf_spaces": 55,
+    "legacy_reference_spaces": 55,
+    "legacy_input_rooms": 84,
+    "legacy_calc_rooms": 84,
+    "verified_same_scope_engine_comparisons": 0,
+    "legacy_reference_equal": 55
+  },
+  "limits": [
+    "Name equality is not geometry/scope equivalence.",
+    "GF PDF cannot validate 1F loads.",
+    "No engine accuracy percentage is computed until mapping and input conditions are approved."
+  ]
+}

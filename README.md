@@ -4,7 +4,9 @@
 
 ## 狀態
 
-2026-09-07：建立私有版本庫與前期基準文件。現階段完成需求登錄及來源盤點，尚未移植、修復或驗證舊計算核心；本倉庫未提供可執行的設計引擎。
+2026-09-07，v0.1：已有可執行的顯式逐時計算核心、HAP原始報表解析與逐房資料對照，以及FOP格式核查。這是供內部覆核的計算基礎；尚未完成任意CAD／PDF自動設計、完整動態傳熱模型或慕拉士同條件引擎驗證。
+
+55份房間HAP報表已逐頁解析，舊蒸餾的55房12項欄位與原PDF一致。此結果證明資料提取一致，不代表自建計算結果與HAP等效。舊84房資料與55房報表的範圍、幾何及名稱映射尚待確認。
 
 ## 已確認決策
 
@@ -21,9 +23,33 @@
 
 - [需求與驗收基準](docs/需求與驗收基準.md)
 - [公司設計標準草案](docs/公司設計標準_v1.0_草案.md)
+- [公司標準集中確認表](docs/公司標準集中確認表.md)
 - [資料來源及前期缺項](docs/資料來源及前期缺項.md)
 - [HAP來源初步覆核](docs/HAP來源初步覆核.md)
+- [HAP逐房對照結果](docs/HAP逐房對照結果.md)
+- [計算核心介面](docs/計算核心介面.md)
+- [FOP母本核對與輸出規格](docs/FOP母本核對與輸出規格.md)
+- [本階段驗證紀錄](docs/本階段驗證紀錄.md)
 - [來源索引](sources/manifest.json)
+
+## 使用方式
+
+核心只需要Python 3.10以上及標準函式庫。於倉庫根目錄執行：
+
+```text
+python -m hvac_engine examples/explicit_hourly_input.json --output result.json
+python scripts/run_checks.py
+```
+
+範例為明確標示的合成測試，不是真實項目設計。實際輸入須包含完整設計日時間軸、房間未加SF分項或明確的內熱源／表面資料，以及人數、排風條件及來源識別。輸出為 `CalculationOnly`，不自動核准工程。
+
+本機Codex環境可執行 [驗證專案.ps1](驗證專案.ps1)。原PDF解析另外需要`pypdf==6.10.0`；原始文件快取存在時，測試會重新提取核查，否則只核對已提交派生資料並標示跳過原檔重讀。
+
+重新取得參考文件：`python scripts/fetch_reference_sources.py --token-file <本機Google憑證檔>`。腳本使用`gh`既有登入與暫存OAuth權杖，按已登錄雜湊核查四份PDF，並從固定Git提交下載參考；不保存或列印憑證，不執行舊程式。
+
+`config/company_standard.json`只啟用用戶已確認的10 L/s／人及最終冷負荷15%SF；其餘候選在`proposals`且不自動套用。輸出工作簿位於`outputs/review/`，屬本機可重建成果，不提交原始圖紙或執行快取。
+
+工作簿重建使用 `node scripts/build_review_workbook.mjs`，需要可解析的 `@oai/artifact-tool`、已取得的FOP母本，以及Python的openpyxl與lxml（只讀母本）。可用 `HVAC_PYTHON` 指定Python；否則採本機Codex bundled runtime。此工作簿仍屬覆核版，並非已完成工程設計。
 
 ## 版本管理
 
