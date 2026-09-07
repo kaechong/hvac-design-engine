@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "version": "0.1.0",
+  "reviewed_on": "2026-09-07",
+  "source": {
+    "id": "ASHRAE-F25-SI-18",
+    "title": "2025 ASHRAE Handbook—Fundamentals, SI, Chapter 18",
+    "url": "https://handbook.ashrae.org/Handbooks/F25/SI/F25_Ch18/f25_ch18_si.aspx",
+    "source_verified": true,
+    "project_application_approved": false
+  },
+  "policy": {
+    "priority": ["project_measured_or_scheduled", "matched_source_reference", "missing_input"],
+    "automatic_application": false,
+    "missing_is_zero": false,
+    "has_safety_factor": false,
+    "requires_hourly_schedule": true,
+    "people_temperature_rule": "原表23.9°C；23°C須記錄工程近似或另採有來源模型，禁止無來源外推。",
+    "lighting_rule": "Table5限值參考，按表尾來源90.1-2022登錄；內文仍提2019，保留版本矛盾。不是實際裝機、澳門法規或完整合規判定。",
+    "equipment_rule": "確認配置及使用強度；逐台法與面積法擇一，禁止重複相加。",
+    "scope": "設計助手版本化參考資料；尚未寫入Retool材料資料庫。"
+  },
+  "people_references": [
+    {"id":"seated_light", "table":"4", "activity_zh":"坐姿輕工作", "sensible_w_per_person":72, "latent_w_per_person":45, "reference_db_c":23.9},
+    {"id":"office_active", "table":"4", "activity_zh":"中等活動辦公", "sensible_w_per_person":73, "latent_w_per_person":59, "reference_db_c":23.9},
+    {"id":"retail_light", "table":"4", "activity_zh":"站立輕工作及步行零售", "sensible_w_per_person":73, "latent_w_per_person":59, "reference_db_c":23.9}
+  ],
+  "office_equipment_references": [
+    {"id":"office_laptop_medium", "table":"14", "w_per_m2":4.91, "m2_per_workstation":11.6, "laptop_fraction":1, "printer_per_workstations":10},
+    {"id":"office_mixed_medium", "table":"14", "w_per_m2":6.35, "m2_per_workstation":11.6, "laptop_fraction":0.5, "printer_per_workstations":10},
+    {"id":"office_desktop_medium", "table":"14", "w_per_m2":7.79, "m2_per_workstation":11.6, "laptop_fraction":0, "printer_per_workstations":10}
+  ],
+  "lighting_references": [
+    {"id":"office_small", "table":"5", "space_zh":"辦公室≤13.9m²", "lpd_w_per_m2":7.9},
+    {"id":"office_medium", "table":"5", "space_zh":"辦公室>13.9至27.9m²", "lpd_w_per_m2":7.1},
+    {"id":"office_large", "table":"5", "space_zh":"辦公室>27.9m²", "lpd_w_per_m2":6.0},
+    {"id":"meeting", "table":"5", "space_zh":"會議室", "lpd_w_per_m2":9.5},
+    {"id":"classroom", "table":"5", "space_zh":"一般課室／培訓室", "lpd_w_per_m2":7.7},
+    {"id":"toilet", "table":"5", "space_zh":"衛生間", "lpd_w_per_m2":8.0}
+  ],
+  "room_function_profiles": [
+    {"id":"office", "name_zh":"辦公室", "people_candidates":["seated_light","office_active"], "lighting_candidates":["office_small","office_medium","office_large"], "equipment_candidates":["office_laptop_medium","office_mixed_medium","office_desktop_medium"], "required_inputs":["人數","活動強度","面積","工作站配置","排程"]},
+    {"id":"meeting", "name_zh":"會議室", "people_candidates":["seated_light"], "lighting_candidates":["meeting"], "equipment_candidates":[], "required_inputs":["座位數","活動確認","影音與電腦設備","排程"]},
+    {"id":"training", "name_zh":"一般培訓室", "people_candidates":["seated_light"], "lighting_candidates":["classroom"], "equipment_candidates":[], "required_inputs":["師生人數與活動","電腦配置","排程"]},
+    {"id":"retail", "name_zh":"零售", "people_candidates":["retail_light"], "lighting_candidates":[], "equipment_candidates":[], "required_inputs":["業態","人數","展示照明","冷櫃及設備","排程"]},
+    {"id":"toilet", "name_zh":"衛生間", "people_candidates":[], "lighting_candidates":["toilet"], "equipment_candidates":[], "required_inputs":["淨體積","人員使用","乾手機等設備","補風來源","排程"]},
+    {"id":"pantry", "name_zh":"茶水間", "people_candidates":[], "lighting_candidates":[], "equipment_candidates":[], "required_inputs":["使用方式","飲水機及冰箱等清單","排熱去向","排程"]},
+    {"id":"server", "name_zh":"伺服器房", "people_candidates":[], "lighting_candidates":[], "equipment_candidates":[], "required_inputs":["IT實際或設計耗電","UPS損失","擴充需求","運行排程"]},
+    {"id":"storage", "name_zh":"倉庫", "people_candidates":[], "lighting_candidates":[], "equipment_candidates":[], "required_inputs":["儲物種類","作業模式","照明及設備清單","排程"]}
+  ]
+}

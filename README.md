@@ -12,6 +12,8 @@
 
 - 首期：一般辦公／商業樓層空調通風，供內部工程設計覆核。
 - 新風標準：10 L/s／人。
+- 室內23°C、55%RH；澳門夏季室外34°CDB／28°CWB；衛生間排風15ACH。
+- 內部發熱備用資料按房間功能及ASHRAE來源整理，實際資料優先；未核對值不自動啟用，不採固定通用的人員／照明／設備組合。
 - 安全係數：1.15，只套用於最終冷負荷一次；新風維持 10 L/s／人，不額外放大新排風量。
 - 修復並驗證既有逐時計算方法，不稱作真正 Carrier HAP 運算。
 - 先統一公司設計標準，由用戶本人核准。
@@ -24,6 +26,7 @@
 - [需求與驗收基準](docs/需求與驗收基準.md)
 - [公司設計標準草案](docs/公司設計標準_v1.0_草案.md)
 - [公司標準集中確認表](docs/公司標準集中確認表.md)
+- [按房間功能發熱資料庫](docs/按房間功能發熱資料庫.md)
 - [資料來源及前期缺項](docs/資料來源及前期缺項.md)
 - [HAP來源初步覆核](docs/HAP來源初步覆核.md)
 - [HAP逐房對照結果](docs/HAP逐房對照結果.md)
@@ -47,7 +50,7 @@ python scripts/run_checks.py
 
 重新取得參考文件：`python scripts/fetch_reference_sources.py --token-file <本機Google憑證檔>`。腳本使用`gh`既有登入與暫存OAuth權杖，按已登錄雜湊核查四份PDF，並從固定Git提交下載參考；不保存或列印憑證，不執行舊程式。
 
-`config/company_standard.json`只啟用用戶已確認的10 L/s／人及最終冷負荷15%SF；其餘候選在`proposals`且不自動套用。輸出工作簿位於`outputs/review/`，屬本機可重建成果，不提交原始圖紙或執行快取。
+`config/company_standard.json`記錄已核准的新風10 L/s／人、最終冷負荷15%SF、室內外工況及衛生間15ACH，並保留2026-09-07決策與適用範圍。`data/reference/internal_gains_by_function.json`按用途整理內部發熱來源；未核對數值不自動套入計算。計算核心仍要求明確輸入。輸出工作簿位於`outputs/review/`，屬本機可重建成果，不提交原始圖紙或執行快取。
 
 工作簿重建使用 `node scripts/build_review_workbook.mjs`，需要可解析的 `@oai/artifact-tool`、已取得的FOP母本，以及Python的openpyxl與lxml（只讀母本）。可用 `HVAC_PYTHON` 指定Python；否則採本機Codex bundled runtime。此工作簿仍屬覆核版，並非已完成工程設計。
 

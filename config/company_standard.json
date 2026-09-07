@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "standard_id": "TRUSTBASE-HVAC-20260907",
-  "version": "0.1.0-review",
+  "version": "0.2.0-review",
   "overall_status": "partially_approved",
   "approved_by": "user",
   "approval_date": "2026-09-07",
@@ -11,6 +11,13 @@
     "safety_factor_scope": "final_raw_cooling_load_once",
     "fresh_air_safety_factor": 1.0,
     "exhaust_safety_factor": 1.0,
+    "indoor_design_db_c": 23.0,
+    "indoor_design_rh_percent": 55.0,
+    "summer_outdoor_design_location": "Macau",
+    "summer_outdoor_design_db_c": 34.0,
+    "summer_outdoor_design_wb_c": 28.0,
+    "toilet_exhaust_ach": 15.0,
+    "internal_gains_selection_policy": "room_function_source_backed",
     "output_method_label_required": false,
     "internal_method_provenance_required": true,
     "reference_template": "FOP_MACAU_VENETIAN-MACAU_06_v1.1",
@@ -20,18 +27,19 @@
   "proposals": [
     {
       "id": "design_conditions",
-      "status": "requires_user_review",
-      "title_zh": "一般辦公室室內外設計條件",
-      "proposal_zh": "一般辦公室先以室內23°C、55%RH及澳門夏季室外34°CDB／28°CWB作公司標準候選；基準對帳仍使用原報表逐月條件。",
-      "evidence_zh": "慕拉士設計說明第4至5頁有34／28°C、辦公23±2°C；55%RH及其他工況在既有知識中不同，仍須核准。",
-      "runtime_default": null
+      "status": "approved",
+      "title_zh": "室內及澳門夏季室外設計條件",
+      "proposal_zh": "室內23°C、55%RH；澳門夏季室外34°CDB／28°CWB。適用首期一般辦公／商業空間；有特殊環境要求的房間另行指定。歷史HAP基準核對保留原報表逐月條件。",
+      "evidence_zh": "用戶於2026-09-07直接確認；屬公司設計基準，不宣稱為ASHRAE澳門氣象分位數。",
+      "runtime_default": {"indoor_db_c": 23.0, "indoor_rh_percent": 55.0, "outdoor_db_c": 34.0, "outdoor_wb_c": 28.0, "location": "Macau", "season": "summer"}
     },
     {
       "id": "internal_gains",
-      "status": "requires_user_review",
-      "title_zh": "一般辦公室內部發熱備用值",
-      "proposal_zh": "實際人數及設備資料優先；缺資料時可否採辦公人員75W顯熱／60W潛熱、照明15W/m²、設備25W/m²作明示假設，需用戶核准。零售與特殊用途不可沿用。",
-      "evidence_zh": "既有主知識庫通用office參數；慕拉士為不同使用強度，不可按案例40／45W/m²泛化。",
+      "status": "requires_project_matching",
+      "verified_reference_file": "data/reference/internal_gains_by_function.json",
+      "title_zh": "按房間功能選取內部發熱備用值",
+      "proposal_zh": "實際人數、活動強度、燈具及設備資料優先；缺資料時按房間功能整理ASHRAE來源備用資料，逐項保留版本、表號、單位、適用工況及使用條件。未核對的值不自動啟用，禁止以一組固定人員／照明／設備值套用全部房間。",
+      "evidence_zh": "用戶於2026-09-07確認按房間功能及ASHRAE來源整理。先前75／60W每人、15W/m²照明及25W/m²設備的通用候選已撤回；本次核准整理原則，不等於核准任何未查證數值。",
       "runtime_default": null
     },
     {
@@ -43,11 +51,11 @@
     },
     {
       "id": "exhaust_rules",
-      "status": "requires_user_review",
+      "status": "approved",
       "title_zh": "一般衛生間及其他空間排風",
-      "proposal_zh": "一般衛生間15ACH作候選，其他用途按污染、濕氣與補風需求整理；不把全部倉庫或茶水間自動判定必須有獨立排風機。",
-      "evidence_zh": "慕拉士設計說明第5頁及既有主知識庫有廁所15ACH；適用條件仍須核准。",
-      "runtime_default": null
+      "proposal_zh": "衛生間排風15ACH。按已確認房間淨體積計算，補風路徑與壓差另行核對；其他用途按污染、濕氣及補風需求整理。",
+      "evidence_zh": "用戶於2026-09-07直接確認衛生間排風15ACH；不加冷負荷15%安全係數。",
+      "runtime_default": {"room_function": "toilet", "exhaust_ach": 15.0}
     },
     {
       "id": "system_and_equipment_conditions",
@@ -55,6 +63,15 @@
       "title_zh": "冷源、新風處理及設備工況",
       "proposal_zh": "每項目確認冷凍水或DX系統、新風供應責任與進出風狀態、室內潛熱分工、設備實際額定性能及所需靜壓。缺值不選定型號。",
       "runtime_default": null
+    }
+  ],
+  "decision_log": [
+    {
+      "date": "2026-09-07",
+      "source": "user_confirmation",
+      "source_text_zh": "室內23°C、55%RH；澳門夏季室外34°CDB／28°CWB；發熱備用值按房間功能而定，不是固定值，你可以按ASHRAE標準整理於資料庫；衛生間排風15ACH；",
+      "scope_zh": "首期一般辦公／商業設計基準及衛生間排風；內部發熱按用途建立有來源的備用資料。特殊工況逐項目指定。",
+      "verification_impact_zh": "公司工況及衛生間ACH可作已核准輸入基準；仍須輸入房間用途、淨體積、排程及項目接口。HAP歷史對照不換成公司工況；內熱源數值須先核對來源與適用條件，不可因整理原則已核准而自動計算。"
     }
   ]
 }
