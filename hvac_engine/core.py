@@ -248,6 +248,7 @@ def equipment_conditions(data):
         'chilled_water_fcu': ('entering_air_db_c', 'entering_air_wb_c', 'entering_water_c', 'leaving_water_c'),
         'dx_unit': ('indoor_db_c', 'indoor_wb_c', 'outdoor_db_c'),
         'fan': ('air_temperature_c', 'air_density_kg_m3'),
+        'fresh_air_unit': ('entering_air_db_c', 'entering_air_wb_c', 'leaving_air_db_c', 'leaving_air_wb_c'),
     }
     if not isinstance(kind, str) or kind not in schemas:
         raise InputError('equipment_type不支援或未明確')
@@ -258,7 +259,12 @@ def equipment_conditions(data):
     for key, value in values.items():
         if key.endswith('_c') and not -50 <= value <= 100:
             raise InputError(f'{key}: 超出本介面支援溫度範圍-50..100°C')
-    if kind == 'chilled_water_fcu':
+    if kind == 'fresh_air_unit':
+        if (values['entering_air_wb_c'] > values['entering_air_db_c'] or
+                values['leaving_air_wb_c'] > values['leaving_air_db_c'] or
+                values['leaving_air_db_c'] > values['entering_air_db_c']):
+            raise InputError('新風處理工況須為冷卻，濕球不得高於乾球')
+    elif kind == 'chilled_water_fcu':
         if values['entering_air_wb_c'] > values['entering_air_db_c']:
             raise InputError('進風濕球不得高於乾球')
         if not 0 < values['entering_water_c'] < values['leaving_water_c'] < 100:

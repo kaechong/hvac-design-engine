@@ -5,6 +5,7 @@ import argparse
 from copy import deepcopy
 import hashlib
 import json
+import os
 from pathlib import Path
 from docx import Document
 from docx.oxml import OxmlElement
@@ -84,38 +85,52 @@ def build_document(package, reference=None):
     rooms = {r['room_id']: r for r in inp['rooms']}
     outcomes = {r['room_id']: r for r in result['rooms']}
     equipment = package['equipment']
+    configurations = package.get('configuration', [])
+    treatment = package.get('air_treatment')
+    if not treatment:
+        raise ValueError('正式報告須提供新風盤管及再熱計算。')
     area = sum(r['room_metadata']['area_m2'] for r in rooms.values())
     cooling = sum(s['sizing_peak']['total_kw'] for s in result['systems'])
     raw = sum(s['raw_peak']['total_kw'] for s in result['systems'])
     fresh = sum(s['fresh_air_ls'] for s in result['systems'])
     exhaust = sum(s['exhaust_ls'] for s in result['systems'])
     def refs(room_id, prefix):
-        return '、'.join(e['id'] for e in equipment if room_id in e['room_ids'] and e['id'].startswith(prefix)) or '未設需求記錄'
+        if prefix=='AC-' and rooms[room_id]['exhaust_ach']>0:
+            return '—'
+        return '、'.join(e['id'] for e in equipment if room_id in e['room_ids'] and e['id'].startswith(prefix)) or '—'
+    def models_for(room_id):
+        found = [f"{e['equipment_id']}\n{e['quantity']} 台" for e in configurations
+                 if room_id in e.get('room_ids', []) and e.get('role') in ('indoor', 'indoor_unit', 'dx_indoor', 'terminal', '室內機')]
+        return '、'.join(found) or refs(room_id, 'AC-')
+    model_list = '；'.join(dict.fromkeys(f"{e.get('brand', '')} {e['model']}" for e in configurations if e.get('model')))
+    coil_raw = treatment['raw_coil']['total_kw']
+    coil_sizing = treatment['sizing_coil']['total_kw']
+    coil_out = treatment['coil_outlet']
     values = {
         0: '機械通風和空調系統設計說 明 及 解 釋 備 忘 錄',
-        1: f"零售展廳三層設計測試\n專案編號：{inp['project_id']}｜版本：{package['version']}｜CalculationOnly",
-        3: '1.1 項目名稱：零售展廳地庫、地面層及一樓 HVAC 設計測試',
-        4: '1.2 項目地點：澳門設計氣象條件；實際工程地址待確認。',
-        5: f'1.3 工程範圍與邊界：本次按建築 PDF 辨識的九個房間進行空調通風計算，計算面積 {area:.2f} m² 為測試估算。成果供設計覆核及後續畫圖交接，尚未完成施工設計或設備採購選型。各房面積、淨高、人數、圍護性能及排程仍屬明示測試假設。',
+        1: f"零售展廳三層空調通風工程\n版本：{package['version']}",
+        3: '1.1 項目名稱：零售展廳地庫、地面層及一樓空調通風工程',
+        4: '',
+        5: f'1.2 工程範圍：本工程涵蓋地庫、地面層及一樓共九個房間，計算面積 {area:.2f} m²，設置直接膨脹式空調末端、新風冷卻除濕及再熱系統，以及衛生間機械排風。',
         39: '• 室外設計氣象條件 (Outdoor Design Temperature)：澳門夏季。',
         40: '• 夏季 (Summer)：34°C 乾球／28°C 濕球；室內 23°C、55% RH。',
-        41: '• 冬季 (Winter)：本次未建立冬季熱負荷及設計工況，未計算。',
-        42: '• 室內空間設計參數與負荷摘要：下表為房間未含 SF 個別峰值；密度＝房間未含 SF 峰值 × 1,000／房間面積，只供本試點粗估比較，不作通用 W/m² 標準。',
+        41: '',
+        42: '• 室內空間設計參數與負荷摘要：下表列出房間原始峰值冷負荷；冷負荷密度（W/m²）＝原始峰值冷負荷（kW）× 1,000／房間面積（m²）。',
         44: '3.2.1 空調系統與直接膨脹式冷源規範 (DX Provision)',
-        45: f'暫定每層獨立 DX／VRF 分區，台數、型號及室內外機對應待選型。系統按同一時刻房間原始負荷相加後取峰值，只在系統最終負荷乘 1.15 一次。系統冷量合計未含 SF {raw:.2f} kW，含 SF {cooling:.2f} kW；以計算面積 {area:.2f} m² 換算合计密度分別為 {raw*1000/area:.2f} 及 {cooling*1000/area:.2f} W/m²。此為各系統選型需求合計，不冒充整棟同時尖峰或單機性能。',
-        47: '本測試採用已確認新風 10 L/s／人及衛生間排風 15 h⁻¹（ACH）。新排風量不乘冷負荷安全係數。法規、用途最低通風及噪音要求須於正式設計覆核。',
-        48: '母本標準待核對事項：歷史第 3.2.2 節同時提及 ASHRAE 62.1-2019 與 2013；本次保留第 2 章固定原文，但不據此宣稱標準版本一致或工程已符合。',
-        49: f'• 鮮風供應原則：新風需求 {fresh:.2f} L/s（{fresh*3.6:.2f} m³/h），共用需求記錄 FAU-REQ-ALL。新風處理機台數、盤管冷量及進出風工況未確定；未建模的新風盤管負荷仍為未計算，以上房間及系統冷量不包含該盤管負荷。',
-        50: f'• 排風必要性與設備編號：地庫及地面層衛生間採 15 h⁻¹（ACH）；合計 {exhaust:.2f} L/s（{exhaust*3.6:.2f} m³/h）。體積（m³）×換氣次數（h⁻¹）＝排風量（m³/h），再除 3.6 得 L/s。需求記錄 TEF-REQ-BF／TEF-REQ-GF 的數量（台）及型號待確定；補風路徑與靜壓尚待設計。',
-        53: '• 天花板安裝設備：DX 室內機及風機須核對天花淨空、檢修空間、吊架承載及隔振；現圖未提供完整設備尺寸與重量，安裝構造待選型後確認。',
+        45: f'本工程按樓層及服務區域配置直接膨脹式空調。室內末端原始冷負荷合計 {raw:.2f} kW，設計冷量合計 {cooling:.2f} kW；安全係數 1.15 於各系統原始尖峰冷負荷施加一次。按面積 {area:.2f} m² 計算，原始及設計冷負荷密度分別為 {raw*1000/area:.2f} 及 {cooling*1000/area:.2f} W/m²。上述為末端系統需求合計，新風處理盤管冷量另列。設備候選包括 {model_list}；配置及性能核對狀態見設備明細表。',
+        47: '設計新風量採 10 L/s／人，衛生間排風採 15 h⁻¹（ACH）。新排風量不施加冷負荷安全係數。',
+        48: '',
+        49: f'• 鮮風供應：設計新風量 {fresh:.2f} L/s（{fresh*3.6:.2f} m³/h），設備需求編號 FAU-REQ-ALL。室外新風經盤管冷卻除濕至 {coil_out["db_c"]:.2f}°C、{coil_out["rh_fraction"]*100:.0f}% RH，再熱至室內設計送風狀態 23°C、55% RH。盤管原始冷負荷 {coil_raw:.2f} kW，含安全係數 1.15 的選型冷量 {coil_sizing:.2f} kW；再熱計算需求 {treatment["reheat_kw"]:.2f} kW。末端與新風盤管設計需求分列，盤管冷量不重複計入末端冷量；兩類設計需求合計 {cooling+coil_sizing:.2f} kW。',
+        50: f'• 排風：地庫及地面層衛生間合計排風量 {exhaust:.2f} L/s（{exhaust*3.6:.2f} m³/h），對應 TEF-REQ-BF／TEF-REQ-GF。排風量（m³/h）＝體積（m³）×換氣次數（h⁻¹）。補風由鄰接空間流向衛生間，維持衛生間相對負壓。',
+        53: '• 設備安裝：壁掛式室內機須核對牆體承載、送回風間距及檢修空間；吊裝風機的吊架按運行重量設計並設隔振裝置。設備安裝高度須與室內及天花配置協調。',
         54: '• 軟連接：風管與風機／風管式室內機連接處採柔性連接，規格由正式設備及安裝要求確定。',
-        55: '• 空調末端設備：須取得同一額定工況下冷量、顯熱、風量、功率、噪音及性能資料；需求記錄不代表單台設備，數量（台）不得由樓層數代填。詳見同版本設備明細表。',
-        56: '• 風管與閘閥：管道尺寸、阻力、機外靜壓（Pa）及穿越防火分區位置尚未建立，防火閥、檢修口及消防連動須在配置完成後覆核。',
-        57: '• 管道與保溫：本暫定 DX 方案需冷媒及凝結水管，未沿用母本中央冰水管配置。材質、保溫厚度、冷媒及防火性能待原廠與工程條件確認。',
-        59: '• 動力和控制材料須依本項目電氣技術規範選定；本次未取得該規範及配電容量。',
-        60: '• 設備供電、隔離開關、電纜及控制線路待選型；功率（kW）及電源（V/Ph/Hz）均以設備明細表待確認欄位追蹤。',
-        61: '• 溫度控制：暫定 DX／VRF 原廠控制器維持室內設定 23°C；55% RH 目標須另驗證除濕及新風處理能力，不套用冰水二通／三通閥條文。',
-        62: '• 火警連動：對應設備停機及閥門聯鎖邏輯待消防分區與控制接口確認，現階段未作已完成聲明。',
+        55: '• 空調末端設備：選型須同時滿足設計工況下總冷量、顯熱及潛熱需求，並核對室內外機配對、最低調節能力、風量及噪音。候選型號須完成原廠工況性能核對後定案。',
+        56: '• 風管與閘閥：風管按設計風量及阻力確定尺寸，風機按同一轉速的風量與靜壓工作點選定。穿越防火分區處設相應防火閥及檢修口，並配合消防聯鎖要求。',
+        57: '• 管道與保溫：設置冷媒及凝結水管；冷媒管管徑、長度及高差須符合原廠配對限制，保溫按防結露要求配置。凝結水管設排水坡度及必要的存水彎。',
+        59: '• 動力和控制材料依本項目電氣技術規範選定。',
+        60: '• 設備設獨立隔離開關，電纜及保護裝置按設備電氣參數配合。輸入功率（kW）及電源（V/Ph/Hz）詳見設備明細表。',
+        61: '• 溫濕度控制：室內設定 23°C、55% RH；新風機組按盤管離風狀態控制除濕，並以再熱控制送風溫度。末端依各服務區域負荷調節。',
+        62: '• 火警連動：設備停機及閥門聯鎖按消防分區與控制接口配置。',
     }
     for index, text in values.items():
         replace_text(doc.paragraphs[index]._p, text)
@@ -136,21 +151,29 @@ def build_document(package, reference=None):
     summary = []
     for rid, r in rooms.items():
         m, o = r['room_metadata'], outcomes[rid]
-        summary.append([f"{rid}\n{m['name_zh']}", f"{m['area_m2']:.2f}", str(r['people']), f"{o['ventilation']['exhaust_m3h']:.2f}", f"{o['ventilation']['fresh_air_ls']:.2f}", f"{o['raw_peak']['total_kw']:.2f}", f"{o['raw_peak']['total_kw']*1000/m['area_m2']:.2f}", refs(rid,'AC-')+'\n台數待定'])
+        summary.append([f"{rid}\n{m['name_zh']}", f"{m['area_m2']:.2f}", str(r['people']), f"{o['ventilation']['exhaust_m3h']:.2f}", f"{o['ventilation']['fresh_air_ls']:.2f}", f"{o['raw_peak']['total_kw']:.2f}", f"{o['raw_peak']['total_kw']*1000/m['area_m2']:.2f}", models_for(rid)])
     populate_table(doc.tables[1], ['房間名稱','面積\n(m²)','人數\n(人)','排風\n(m³/h)','新風\n(L/s)','原始峰值\n(kW)','原始密度\n(W/m²)','本工程空調通風配置'], summary)
     populate_table(doc.tables[2], ['樓層','區域名稱','空間用途','空調需求記錄','新風需求記錄','排風需求記錄'], [
         [r['room_metadata']['floor'], rid+'\n'+r['room_metadata']['name_zh'],r['room_metadata']['name_zh'],refs(rid,'AC-'), refs(rid,'FAU-'),refs(rid,'TEF-')]
         for rid,r in rooms.items()])
-    reasons=['文件數值已統一；施工圖未建立，整體資訊待協調','設備及管道未定位，待核對逃生和隔火空間','未完成風口配置及噪音評估','尚欠設備選型及消防安裝覆核','管道路徑未定，防火穿越待核對','現圖淨高不完整；3.0 m 為測試假設']
+    reasons=['核對設備明細與各專業配置的一致性','核對設備、管道與逃生及隔火空間','核對送回風配置與室內噪音','核對設備安裝與消防要求','核對管道防火穿越及封堵','核對設備安裝高度與天花淨空']
     populate_table(doc.tables[3], ['項次','內容','核實狀態','證據／待辦'], [
         [row[0],row[1],'待核實',reasons[i]] for i,row in enumerate(spec['tables'][3]['rows'][1:])])
+    # 完成依原母本段落編號填寫後移除不適用段落。
+    for index in sorted((4, 41, 48), reverse=True):
+        element = doc.paragraphs[index]._p
+        element.getparent().remove(element)
+    for paragraph in doc.paragraphs:
+        if full_text(paragraph._p).startswith('5 –'):
+            paragraph.paragraph_format.page_break_before = True
     return doc
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--package', type=Path, default=ROOT/'outputs/revised_20260908/design_package.json')
-    parser.add_argument('--output', type=Path, default=ROOT/'outputs/revised_20260908/設計說明.docx')
+    output_dir=Path(os.environ.get('HVAC_OUTPUT_DIR',ROOT/'outputs/selected_20260908'))
+    parser.add_argument('--package', type=Path, default=output_dir/'design_package.json')
+    parser.add_argument('--output', type=Path, default=output_dir/'設計說明.docx')
     args = parser.parse_args()
     package = json.loads(args.package.read_text(encoding='utf-8'))
     doc = build_document(package)

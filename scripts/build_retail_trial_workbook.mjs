@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { SpreadsheetFile, Workbook } from '@oai/artifact-tool';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const outputDir = path.join(root, 'outputs/revised_20260908');
+const outputDir = path.resolve(root, process.env.HVAC_OUTPUT_DIR || 'outputs/revised_20260908');
 const pkg = JSON.parse(await fs.readFile(path.join(outputDir, 'design_package.json'), 'utf8'));
 const {input, result, equipment} = pkg;
 await fs.mkdir(outputDir, {recursive: true});
@@ -126,6 +126,80 @@ sh['待覆核事項'].getRange('A5:E14').values=[
 ];
 sh['待覆核事項'].getRange('E5:E14').format.fill='#FFF2CC';
 
+if(pkg.air_treatment){
+ const a=pkg.air_treatment;
+ sh['概覽'].getRange('A1').values=[['零售展廳 HVAC 設計計算｜'+pkg.version]];
+ sh['概覽'].getRange('A2').values=[['設計值、來源與內部覆核分頁管理；末端與新風盤管分列。']];
+ sh['概覽'].getRange('B12:D12').values=[['暫定配置及原廠候選','—','按原廠工況核對後定案，資料來源見設備選型依據。']];
+ sh['概覽'].getRange('A20').values=[['室內末端合計']];
+ sh['概覽'].getRange('A22').values=[['末端負荷不含新風。新風另設冷卻除濕及再熱，盤管需求見新風處理計算；再熱不另計冷負荷。']];
+ sh['冷負荷計算'].getRange('A2').values=[['房間峰值分項；G＝D＋E。新風由FAU獨立處理。冷負荷密度＝房間未含SF冷負荷÷房間面積。']];
+ for(let r=5;r<=13;r++){sh['冷負荷計算'].getRange(`F${r}`).values=[['由FAU處理']];sh['冷負荷計算'].getRange(`H${r}`).values=[['不適用']];}
+ sh['系統負荷密度'].getRange('A1').values=[['系統冷負荷密度｜'+pkg.version]];
+ sh['系統負荷密度'].getRange('F4:G4').values=[['冷負荷密度\n未含SF(W/m²)','冷負荷密度\n含SF(W/m²)']];
+ function extra(name,title,subtitle,headers,widths,rows){names.push(name);const s=wb.worksheets.add(name);sh[name]=s;setup(s,title,subtitle,headers,widths,rows.length+4);s.getRange(`A5:${col(headers.length)}${rows.length+4}`).values=rows;return s;}
+ const h=s=>s.enthalpy_kjkg,w=s=>s.humidity_ratio_kgkg;
+ extra('新風處理計算','新風冷卻除濕及再熱','流量按入口實際體積；焓以每kg乾空氣為基準。SF只用於盤管選型冷量。',['項目','數量／公式','單位','計算口徑'],[32,26,22,82],[
+ ['入口新風量',a.airflow_ls,'L/s','設計人數×10 L/s/人'],
+ ['入口新風量','=B5*3.6','m³/h','L/s×3.6'],
+ ['入口比容',a.inlet.specific_volume_m3kg_da,'m³/kg_da','34°CDB／28°CWB，101325Pa'],
+ ['乾空氣質量流量','=B5/1000/B7','kg_da/s','體積流量÷入口比容'],
+ ['入口焓',h(a.inlet),'kJ/kg_da','室外設計工況'],
+ ['盤管出口焓',h(a.coil_outlet),'kJ/kg_da',`${a.coil_outlet.db_c.toFixed(2)}°C／95%RH`],
+ ['室內中性送風焓',h(a.supply),'kJ/kg_da','23°C／55%RH'],
+ ['原始盤管冷量','=B8*(B9-B10)','kW','乾空氣質量流量×盤管進出風焓差'],
+ ['冷負荷安全係數',"='概覽'!B10",'倍','只乘一次'],
+ ['盤管選型冷量','=B12*B13','kW','原始盤管冷量×1.15'],
+ ['再熱量','=B8*(B11-B10)','kW','乾空氣質量流量×送風與盤管出口焓差；不再乘冷負荷SF'],
+ ['新風淨焓差負荷','=B8*(B9-B11)','kW','盤管原始冷量−再熱量'],
+ ['焓差平衡校核','=B12-B15-B16','kW','應為0'],
+ ['入口含濕量',w(a.inlet),'kg/kg_da','34°CDB／28°CWB'],
+ ['盤管出口含濕量',w(a.coil_outlet),'kg/kg_da','盤管目標95%RH'],
+ ['送風含濕量',w(a.supply),'kg/kg_da','23°C／55%RH，純再熱不改變含濕量'],
+ ['凝結水量','=B8*(B18-B19)*3600','kg/h','乾空氣質量流量×含濕量差×3600'],
+ ['室內末端選型冷量',"='概覽'!B20",'kW','原房間負荷加SF，不包括新風'],
+ ['末端與新風盤管需求合計','=B14+B22','kW','兩類設備需求之和，非建築同時峰值；不再乘SF'],
+ ['工況及風機熱',a.assumptions.join('；'),'—','設計工況待原廠盤管選型驗證'],
+ ]).getRange('B5:B23').format.numberFormat='0.0000';
+ sh['新風處理計算'].getRange('A24:D24').format.rowHeight=88;
+ const cfg=pkg.configuration||[];
+ extra('設備選型依據','設備配置與性能依據','標稱性能與本工程設計點性能分開。候選不代表已核准配對。',['編號／系統','品牌及型號','角色／數量（台）','標稱冷量（kW）','服務房間','工況及核對狀態','來源'],[24,32,20,18,28,65,65],cfg.map(c=>[c.equipment_id,c.brand+' '+c.model,`${c.role}／${c.quantity}`,c.nominal_cooling_kw??'待核對',(c.room_ids||[]).join('、'),[c.rating_condition,...(c.rating_conditions||[]),c.selection_status,...(c.missing||[])].filter(Boolean).join('；'),c.source_url||c.source_id||'來源待核對']));
+ sh['設備選型依據'].getUsedRange().format.rowHeight=70;sh['設備選型依據'].getRange('A1:G3').format.rowHeight=25;sh['設備選型依據'].getRange('A4:G4').format.rowHeight=48;
+ const review=pkg.internal_review||[];
+ extra('內部覆核','內部覆核與設計決策','助手完成一般查證；以下集中保留會改變方案的邊界及計算假設。',['編號','事項','目前採用','改變方案的影響'],[12,28,85,75],review.map(r=>[r.id,r.item,r.adopted,r.impact])).getRange(`A5:D${review.length+4}`).format.rowHeight=100;
+ const sup=pkg.source_supplement||{};
+ const sources=sup.sources||[];
+ const srcRows=[['SNAPSHOT',pkg.snapshot?.queried_at||pkg.equipment_snapshot?.queried_at||'見資料快照',pkg.snapshot?.path||pkg.equipment_snapshot?.path||'data/local/equipment_snapshot_20260908.json',pkg.equipment_snapshot?.notice||'唯讀查詢，保留快照日期及原始資料'],...sources.map(s=>[s.id,s.title||s.method,s.url,`頁次 ${s.reviewed_pages||s.pages||s.printed_page||'原廠網頁'}；${s.method||''}`]),['PSYCHROMETRIC','新風濕空氣公式',a.source,'採ASHRAE SI濕球關係；盤管離風目標95%RH'],...(sup.database_quality_findings||[]).map((q,i)=>['QUALITY-'+(i+1),q.local_status,q.mat_id_range||(q.mat_ids||[]).join('、'),q.reason])];
+ extra('資料來源','來源與資料品質','關聯型錄名稱差異只在本專案記錄，不回寫既有資料庫。',['來源編號','來源／查詢日期','路徑／網址','核對內容'],[26,48,80,75],srcRows).getRange(`A5:D${srcRows.length+4}`).format.rowHeight=100;
+ sh['資料來源'].getRange('B5').format.numberFormat='yyyy-mm-dd hh:mm:ss" UTC"';
+ cfg.forEach((c,i)=>{if(c.published_operating_point){const d=c.published_operating_point;sh['設備選型依據'].getRange(`F${i+5}`).values=[[`原廠參考工作點：${d.airflow_m3h}m³/h、${d.static_pressure_pa}Pa、${d.rpm}rpm、${d.power_w}W、控制${d.control_v}V。屬同一公開工作點；本工程工作點及選速仍須核對。`]];}});
+ const comparisons=[];
+ for(const p of pkg.selection_plan||[]){
+  comparisons.push([p.system_id,p.recommended_provisional||'見設備配置',p.reason||'候選未完成設計點核對','暫定推薦']);
+  for(const x of p.alternatives||[])comparisons.push([p.system_id,x.model,x.reason||'見名義容量與連接率核對','備選']);
+  for(const x of p.rejected||[])comparisons.push([p.system_id,x.model,x.reason,'淘汰']);
+  for(const r of p.nominal_comparisons?.rooms||[]){
+   for(const [items,status] of [[[r.provisional],'房間暫定配置'],[r.alternatives||[],'房間備選'],[r.rejected||[],'房間淘汰']]){
+    for(const x of items)comparisons.push([r.room_id,`${x.model} × ${x.quantity}台`,`標稱${x.nominal_total_kw.toFixed(2)}kW／需求${x.required_kw.toFixed(2)}kW；名義風量${x.nominal_airflow_ls.toFixed(1)}L/s／需求${x.required_airflow_ls.toFixed(1)}L/s。${x.reasons?.join('；')||r.reason}。${r.airflow_basis}` ,status]);
+   }
+  }
+ }
+ if(comparisons.length)extra('配置比較','配置比較及淘汰理由','先比較同用途容量與分區；未知效率、噪音及單價不参与排序。',['系統','配置／型號','理由','狀態'],[24,48,105,22],comparisons).getRange(`A5:D${comparisons.length+4}`).format.rowHeight=85;
+ sh['待覆核事項'].getRange('A2').values=[['內部資料追查清單；一般資料核對由助手處理，關鍵決策集中見內部覆核頁。']];
+ sh['待覆核事項'].getRange('D5:E14').values=[
+  ['由原建築圖核對邊界及尺寸；沿用輸入的面積保留原證據狀態。','助手追查'],
+  ['核對剖面及天花標高；目前採3.0m。','助手追查'],
+  ['由建築詳圖及既有資料核對外牆、玻璃與方位；差異列入重算條件。','助手追查'],
+  ['按用途及營業排程整理人數；如營運條件不同則集中調整。','內部覆核'],
+  ['按燈具及設備表追查功率，缺表時保留用途基準。','助手追查'],
+  ['暫採分層VRF及自設全新風處理，供冷邊界列為集中決策。','集中決策'],
+  ['由現有圖紙與設備記錄判讀保留／拆除範圍。','助手追查'],
+  ['按路由計算阻力後核對原廠曲線；不以最大靜壓代替需求。','工程深化'],
+  ['已查資料庫及原廠型錄，按本工程工況繼續核對顯熱、配對及調節能力。','候選已整理'],
+  ['核對本項目適用條文與物業標準，版本差異不擅改固定原文。','內部覆核'],
+ ];
+ sh['待覆核事項'].getRange('D13:E13').values=[['已查現有資料庫及關聯原廠型錄，候選及缺項見設備選型依據。','候選已整理']];
+}
 for (const sheet of Object.values(sh)) sheet.getUsedRange().format.verticalAlignment='center';
 await fs.mkdir(path.join(outputDir,'qa'),{recursive:true});
 wb.recalculate();
@@ -136,6 +210,10 @@ console.log(errors.ndjson);
 for (const name of names) {
   const image = await wb.render({sheetName:name,autoCrop:'all',scale:1.3,format:'png'});
   await fs.writeFile(path.join(outputDir, 'qa', `${name}.png`), new Uint8Array(await image.arrayBuffer()));
+  if(name==='配置比較'){
+   const last=sh[name].getUsedRange().values.length;
+   for(let start=1;start<=last;start+=14){const part=await wb.render({sheetName:name,range:`A${start}:D${Math.min(start+13,last)}`,scale:1.2,format:'png'});await fs.writeFile(path.join(outputDir,'qa',`配置比較_${start}.png`),new Uint8Array(await part.arrayBuffer()));}
+  }
 }
 const output = await SpreadsheetFile.exportXlsx(wb);
 await output.save(path.join(outputDir,'設計計算表.xlsx'));

@@ -2,11 +2,12 @@
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 from lxml import etree as E
+import os
 
 NS='http://schemas.openxmlformats.org/spreadsheetml/2006/main'
 Q=lambda s:'{'+NS+'}'+s
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'outputs/revised_20260908'
+OUT=ROOT/os.environ.get('HVAC_OUTPUT_DIR','outputs/revised_20260908')
 
 def configure(path, ranges, title_rows):
     with ZipFile(path) as z: files={n:z.read(n) for n in z.namelist()}
@@ -20,7 +21,19 @@ def configure(path, ranges, title_rows):
     rels=E.fromstring(files['xl/_rels/workbook.xml.rels'])
     targets={r.get('Id'):r.get('Target') for r in rels}
     for i,s in enumerate(book.find(Q('sheets'))):
-        name=s.get('name');rng=ranges[name]
+        name=s.get('name')
+        target=targets[s.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id')]
+        target=target.lstrip('/') if target.startswith('/') else 'xl/'+target
+        sheet=E.fromstring(files[target])
+        populated=[c.get('r') for c in sheet.iter(Q('c')) if any(c.find(Q(t)) is not None for t in ['v','f','is'])]
+        import re
+        def column_number(ref):
+            n=0
+            for ch in re.match('[A-Z]+',ref)[0]:n=n*26+ord(ch)-64
+            return n
+        last_row=max(int(re.search(r'\d+',c)[0]) for c in populated)
+        last_col=re.match('[A-Z]+',max(populated,key=column_number))[0]
+        rng=f'$A$1:${last_col}${last_row}'
         for label,value in [('_xlnm.Print_Area',rng),('_xlnm.Print_Titles',f'$1:${title_rows}')]:
             E.SubElement(names,Q('definedName'),name=label,localSheetId=str(i)).text=f"'{name}'!{value}"
         target=targets[s.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id')]
