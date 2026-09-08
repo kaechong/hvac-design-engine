@@ -1,0 +1,416 @@
+{
+  "version": "FOP-v1.1-fixed-20260908",
+  "source_files": [
+    {
+      "name": "FOP_MACAU_VENETIAN-MACAU_06_20260808_v1.1.xlsx",
+      "sha256": "807e4227d5bfa3db751adc7fb562812095d18c21db940ad810994ba4116b0b42"
+    },
+    {
+      "name": "FOP_MACAU_VENETIAN-MACAU_06_Design_Narrative_v1.1.docx",
+      "sha256": "eaa9123ac7fbccf36452265787018a167f3a42ad2c327286377b31b8a3d2f8e8"
+    }
+  ],
+  "fixed_chapters": {
+    "2": [
+      {
+        "paragraph_index": 7,
+        "text": "2 – 設計法規和標準 (Design Regulations & Standards)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 8,
+        "text": "2.1 澳門特別行政區法規及標準 (MSAR Regulations)",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 9,
+        "text": "裝置、材料以及設備應總體符合下列現行的MSAR標準規範、準則以及慣例規範的相關要求：",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 10,
+        "text": "• 澳門土地工務局 (DSSCU)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 11,
+        "text": "• 澳門消防局 (CB)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 12,
+        "text": "• 第15/2021號法律 – 樓宇及場地防火安全的法律制度",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 13,
+        "text": "• 第39/2022號行政法規 – 樓宇及場地防火安全技術規章",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 14,
+        "text": "• 澳門電力股份有限公司(CEM)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 15,
+        "text": "• 市政署(IAM)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 16,
+        "text": "• 環境保護局 (DSPA)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 17,
+        "text": "• 澳門自來水股份有限公司(SAAM)",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 18,
+        "text": "該裝置應完全符合澳門土地工務局(DSSCU)制定的所有法定法規和立法。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 19,
+        "text": "2.2 國際標準及守則 (International Standards & Codes)",
+        "font_sizes_half_points": [
+          "23"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 20,
+        "text": "安裝，材料和設備應符合法定機關、機構和組織頒布的標準守則、指引和其他文件的最新要求：",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 21,
+        "text": "• BSI - British Standards Institution",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 22,
+        "text": "• CIBSE - Chartered Institution of Building Services Engineers",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 23,
+        "text": "• IMC - International Mechanical Code",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 24,
+        "text": "• ISO - International Standards Organization",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 25,
+        "text": "• ASHRAE - American Society of Heating, Refrigerating & Air-Conditioning Engineers",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 26,
+        "text": "• ASME - American Society of Mechanical Engineers",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 27,
+        "text": "• SMACNA - Sheet Metal and Air Conditioning Contractor’s National Association, Inc.",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 28,
+        "text": "• ARI - Air-conditioning and Refrigeration Institute",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 29,
+        "text": "• HVCA - Heating and Ventilating Contractor’s Association",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 30,
+        "text": "• ASTM - American Society on Testing and Materials",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 31,
+        "text": "• NFPA - National Fire Protection Association",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 32,
+        "text": "• UL - Underwriters' Laboratories, Inc.",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 33,
+        "text": "• EN - European Standard",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 34,
+        "text": "• BS - British Standard",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 35,
+        "text": "• DIN - German Standard",
+        "font_sizes_half_points": [],
+        "fonts": []
+      },
+      {
+        "paragraph_index": 36,
+        "text": "• JIS - Japanese Industrial Standards",
+        "font_sizes_half_points": [],
+        "fonts": []
+      }
+    ],
+    "4": [
+      {
+        "paragraph_index": 63,
+        "text": "4 – 其 他 要 求 (Other Requirements)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 64,
+        "text": "設備及材料通用要求：",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 65,
+        "text": "• a) 按質量控制手冊或質量控制單位要求提供自檢記錄/第三方測試報告；",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 66,
+        "text": "• b) 提交設備為五年內的認可實體檢驗報告，保證執行現行使用標準及近期內該產品的質量；",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 67,
+        "text": "• c) 提供系統硬件使用手冊，系統操作手冊，指引手冊，維修保養手冊及維保人員資質要求等文件說明。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 68,
+        "text": "• d) 提交相關專業範疇的註冊工程師的資料及責任聲明書，以及所有技術文件需由澳門土地工務局相關專業範疇的註冊工程師簽署。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 69,
+        "text": "• e) 提交近年的本地工程履歷（Job Reference）。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      }
+    ],
+    "6": [
+      {
+        "paragraph_index": 72,
+        "text": "6 – 最 終 解 釋 及 說 明 (Final Explanation)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 73,
+        "text": "所有安裝均須符合所有提及的規章，為完善安裝工程，須選擇最好的安裝程序。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      }
+    ],
+    "7": [
+      {
+        "paragraph_index": 74,
+        "text": "7 – 遺 漏 爭 議 (Omission Disputes)",
+        "font_sizes_half_points": [
+          "26"
+        ],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      },
+      {
+        "paragraph_index": 75,
+        "text": "在本設計方案的規格說明內未曾提到的項目及規章均須按照澳門現行法律規定。",
+        "font_sizes_half_points": [],
+        "fonts": [
+          "Arial Unicode MS"
+        ]
+      }
+    ]
+  },
+  "chapters": [
+    {
+      "paragraph_index": 2,
+      "text": "1 – 工 程 範 圍 (Project Scope)",
+      "font_sizes_half_points": [
+        "26"
+      ],
+      "fonts": [
+        "Arial Unicode MS"
+      ]
+    },
+    {
+      "paragraph_index": 7,
+      "text": "2 – 設計法規和標準 (Design Regulations & Standards)",
+      "font_sizes_half_points": [
+        "26"
+      ],
+      "fonts": [
+        "Arial Unicode MS"
+      ]
+    },
+    {
+      "paragraph_index": 37,
+      "text": "3 – 設計概念及技術要求 (Design Concepts & Technical Requirements)",
+      "font_sizes_half_points": [
+        "26"
+      ],
+      "fonts": [
+        "Arial Unicode MS"
+      ]
+    },
+    {
+      "paragraph_index": 63,
+      "text": "4 – 其 他 要 求 (Other Requirements)",
+      "font_sizes_half_points": [
+        "26"
+      ],
+      "fonts": [
+        "Arial Unicode MS"
+      ]
+    },
+    {
+      "paragraph_index": 70,
+      "text": "5 – 重 要 項 目 的 核 實 (Verification of Important Items)",
+      "font_sizes_half_points": [
+        "26"
+      ],
+      "fonts": [
+        "Arial Unicode MS"
+      ]
+    },
+    {
+      "paragraph_index": 72,
+      "text": "6 – 最 終 解 釋 及 說 明 (Final Explanation)",
+      "font_sizes_half_points": [
+        "26"
+      ],
+      "fonts": [
+        "Arial Unicode MS"
+      ]
+    },
+    {
+      "paragraph_index": 74,
+      "text": "7 – 遺 漏 爭 議 (Omission Disputes)",
+      "font_sizes_half_points": [
+        "26"
+      ],
+      "fonts": [
+        "Arial Unicode MS"
+      ]
+    }
+  ],
+  "page_twips": {
+    "h": "15840",
+    "w": "12240",
+    "orient": "portrait"
+  },
+  "margin_twips": {
+    "bottom": "1440",
+    "top": "1440",
+    "left": "1440",
+    "right": "1440",
+    "header": "720",
+    "footer": "720"
+  }
+}
