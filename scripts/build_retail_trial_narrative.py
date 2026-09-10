@@ -131,6 +131,7 @@ def build_document(package, reference=None):
         60: '• 設備設獨立隔離開關，電纜及保護裝置按設備電氣參數配合。輸入功率（kW）及電源（V/Ph/Hz）詳見設備明細表。',
         61: '• 溫濕度控制：室內設定 23°C、55% RH；新風機組按盤管離風狀態控制除濕，並以再熱控制送風溫度。末端依各服務區域負荷調節。',
         62: '• 火警連動：設備停機及閥門聯鎖按消防分區與控制接口配置。',
+        71: '本表為標準核實表模板，按母本保留固定文字及預填內容，不代表本工程已完成實際核實；實際核實紀錄另行記錄。',
     }
     for index, text in values.items():
         replace_text(doc.paragraphs[index]._p, text)
@@ -156,9 +157,13 @@ def build_document(package, reference=None):
     populate_table(doc.tables[2], ['樓層','區域名稱','空間用途','空調需求記錄','新風需求記錄','排風需求記錄'], [
         [r['room_metadata']['floor'], rid+'\n'+r['room_metadata']['name_zh'],r['room_metadata']['name_zh'],refs(rid,'AC-'), refs(rid,'FAU-'),refs(rid,'TEF-')]
         for rid,r in rooms.items()])
-    reasons=['核對設備明細與各專業配置的一致性','核對設備、管道與逃生及隔火空間','核對送回風配置與室內噪音','核對設備安裝與消防要求','核對管道防火穿越及封堵','核對設備安裝高度與天花淨空']
-    populate_table(doc.tables[3], ['項次','內容','核實狀態','證據／待辦'], [
-        [row[0],row[1],'待核實',reasons[i]] for i,row in enumerate(spec['tables'][3]['rows'][1:])])
+    # 第5章表格直接保留母本XML，不重建或覆寫預填欄位。
+    fixed_rows=contract['fixed_tables']['3']['rows']
+    actual_rows=[[full_text(c._tc) for c in row.cells] for row in doc.tables[3].rows]
+    if actual_rows != fixed_rows:
+        raise ValueError('第5章固定表格與版本化母本不一致。')
+    doc.paragraphs[71].paragraph_format.keep_with_next=True
+    doc.tables[3]._tbl.addprevious(doc.paragraphs[71]._p)
     # 完成依原母本段落編號填寫後移除不適用段落。
     for index in sorted((4, 41, 48), reverse=True):
         element = doc.paragraphs[index]._p
@@ -171,7 +176,7 @@ def build_document(package, reference=None):
 
 def main():
     parser = argparse.ArgumentParser()
-    output_dir=Path(os.environ.get('HVAC_OUTPUT_DIR',ROOT/'outputs/selected_20260908'))
+    output_dir=Path(os.environ.get('HVAC_OUTPUT_DIR',ROOT/'outputs/drawing_handoff_20260910'))
     parser.add_argument('--package', type=Path, default=output_dir/'design_package.json')
     parser.add_argument('--output', type=Path, default=output_dir/'設計說明.docx')
     args = parser.parse_args()

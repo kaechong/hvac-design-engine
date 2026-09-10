@@ -63,3 +63,11 @@ python scripts/run_checks.py
 `main` 保存已整理的專案基準；功能分支使用 `codex/` 前綴。原始大型工程文件保留在 Drive，Git 保存檔案 ID、內容雜湊及來源版本。現有 `hvac-workspace` 與 `hvac-design-assistant` 倉庫僅作參考，經核查後才逐項引入。
 
 任何舊範本中的「已符合」、固定峰值或設備預設，均不得因移植而變成已驗證結論。
+
+## 畫圖交接成果（2026-09-10）
+
+`python scripts/rebuild_drawing_handoff.py` 沿用本機 `outputs/selected_20260908/design_package.json`、原建築PDF及兩份版本化覆核紀錄，重建 `outputs/drawing_handoff_20260910/`。此流程不重新查庫，保留原設備快照日期；交付僅為設計說明.docx、設計計算表.xlsx、設備明細表.xlsx及畫圖工作指引.md。中間JSON、QA圖與檢查紀錄不是交付文件，PDF僅容許作本機版面驗證。
+
+第2、4、5、6、7章均取固定母本；第5章預填「是」只屬標準核實表模板。實際六項狀態與十項跟進行動位於計算工作簿。畫圖設備展開17個單機編號，保留13個群組對映。GF-02未有圖面房間對映、1F-02天花CH2100與計算假設不同、室外機與FAU安裝区未證實，均限制相應定位，不阻止其他區域的暫定圖紙整理。
+
+執行 `python -m unittest discover -s tests -q` 及 `python scripts/verify_drawing_handoff.py` 核對數量、公式快取、固定文字、來源、跟進欄位與跨文件一致性。工作簿以artifact-tool重算及檢查，不能把此項驗證稱為原生Excel重算。詳見 [本輪驗證紀錄](docs/畫圖交接驗證20260910.md)。

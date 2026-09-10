@@ -96,11 +96,47 @@ if(pkg.air_treatment){
  cfg.forEach((c,i)=>{if((c.room_ids||[]).length>4)s.getRange(`A${i+8}:N${i+8}`).format.rowHeight=110;});
  s.freezePanes.freezeRows(7);
 }
+if((pkg.drawing_equipment||[]).length){
+ const items=pkg.drawing_equipment,s=wb.worksheets.add('單機定位'),last=items.length+7;
+ const headers=['單機設備編號','群組編號','角色／服務房間','品牌及候選型號','原圖依據／建議位置','室內外機配對','來源頁次','定位條件／送風／檢修及接駁'];
+ s.showGridLines=false;
+ const used=s.getRange(`A1:H${last}`);
+ used.format.font={name:'Arial',size:10,color:'#000000'};
+ used.format.fill='#FFFFFF';used.format.wrapText=true;used.format.verticalAlignment='center';
+ [24,22,32,38,68,22,16,90].forEach((w,i)=>s.getRange(`${col(i+1)}1:${col(i+1)}${last}`).format.columnWidth=w);
+ for(const [r,t] of [[1,'零售展廳 HVAC 工程'],[2,'T4 單機定位及建築協調'],[3,`版本：${pkg.version}；每列一台，與群組設備表對應`],[5,'原圖構件與設計建議分列；圖面上／下／左／右不代表地理方位，位置未定者保留定位條件']]){
+  s.mergeCells(`A${r}:H${r}`);s.getRange(`A${r}`).values=[[t]];
+  s.getRange(`A${r}`).format.rowHeight=r===5?40:28;
+  s.getRange(`A${r}`).format.font={name:'Arial',size:r===1?16:12,bold:true};
+  s.getRange(`A${r}`).format.horizontalAlignment='center';
+ }
+ s.getRange('A6:H6').values=[headers];
+ s.getRange('A7:H7').values=[['每列 1 台','—','—','—','文字定位；不含座標','—','PDF 頁碼','—']];
+ s.getRange('A6:H7').format.font={name:'Arial',size:10,bold:true};
+ s.getRange('A6:H7').format.horizontalAlignment='center';s.getRange('A6:H7').format.rowHeight=36;
+ const rows=items.map(c=>[
+  c.equipment_id,c.group_id,
+  [c.role,...(c.room_ids||[]).map(r=>roomNames.get(r)||r)].filter(Boolean).join('\n'),
+  [c.brand,c.model].filter(Boolean).join(' ')||'見群組設備表',
+  `原圖依據：${c.observed_anchor||'未見可證實安裝位置'}\n建議：${c.proposed_location||'位置待定；不得在圖上虛設安裝點'}`,
+  c.paired_to||'不適用／見接駁條件',
+  (c.source_pages||[]).map(p=>`P${p}`).join('／'),
+  [['定案條件',c.unresolved_impact],['方向',c.proposed_direction],['檢修',c.service_access],['接駁',c.connections]].filter(([,v])=>v).map(([k,v])=>`${k}：${v}`).join('\n')
+ ]);
+ s.getRange(`A8:H${last}`).values=rows;
+ s.getRange(`A6:H${last}`).format.borders={preset:'all',style:'thin',color:'#000000'};
+ s.getRange('A6:H7').format.borders={preset:'outside',style:'medium',color:'#000000'};
+ rows.forEach((r,i)=>{
+  const lines=Math.max(String(r[4]).split('\n').reduce((n,t)=>n+Math.ceil(t.length/36),0),String(r[7]).split('\n').reduce((n,t)=>n+Math.ceil(t.length/46),0),(items[i].room_ids||[]).length+1);
+  s.getRange(`A${i+8}:H${i+8}`).format.rowHeight=Math.max(112,lines*17+18);
+ });
+ s.freezePanes.freezeRows(7);
+}
 for(const s of wb.worksheets.items){
  s.getUsedRange().format.numberFormat='0.00';
  if(s.name==='空調設備')s.getRange('D8:D10').format.numberFormat='0';
  else if(s.name==='機組配置')s.getRange(`E8:E${(pkg.configuration||[]).length+7}`).format.numberFormat='0';
- else s.getRange('C8:C9').format.numberFormat='0';
+ else if(s.name!=='單機定位')s.getRange('C8:C9').format.numberFormat='0';
 }
 wb.recalculate();
 for(const name of ['空調設備','風機','新風處理'])console.log((await wb.inspect({kind:'table',range:`${name}!A6:H10`,include:'values,formulas',tableMaxRows:5,tableMaxCols:8,maxChars:3500})).ndjson);

@@ -15,13 +15,14 @@ class NarrativeTemplateTests(unittest.TestCase):
         template = json.loads(builder.TEMPLATE.read_text(encoding='utf-8'))
         reference = json.loads((ROOT/'data/reference/fop_template_spec.json').read_text(encoding='utf-8'))
         original = {p['paragraph_index']:p['text'] for p in reference['docx']['paragraphs']}
-        self.assertEqual(set(template['fixed_chapters']), {'2','4','6','7'})
+        self.assertEqual(set(template['fixed_chapters']), {'2','4','5','6','7'})
+        self.assertEqual(template['fixed_tables']['3']['rows'],reference['docx']['tables'][3]['rows'])
         for chapter in template['fixed_chapters'].values():
             for p in chapter:
                 self.assertEqual(p['text'], original[p['paragraph_index']])
 
     def test_build_preserves_fixed_text_and_replaces_project(self):
-        package_path = ROOT/'outputs/selected_20260908/design_package.json'
+        package_path = ROOT/'outputs/drawing_handoff_20260910/design_package.json'
         if not package_path.exists():
             self.skipTest('先建置本地試點 design_package.json')
         package = json.loads(package_path.read_text(encoding='utf-8'))
@@ -56,8 +57,10 @@ class NarrativeTemplateTests(unittest.TestCase):
         self.assertEqual(doc.sections[0].top_margin.inches, 1)
         for e in package['equipment']:
             self.assertIn(e['id'], text)
-        for row in doc.tables[3].rows[1:]:
-            self.assertEqual(builder.full_text(row.cells[2]._tc), '待核實')
+        actual_rows=[[builder.full_text(c._tc) for c in row.cells] for row in doc.tables[3].rows]
+        self.assertEqual(actual_rows,template['fixed_tables']['3']['rows'])
+        self.assertIn('本表為標準核實表模板',text)
+        self.assertIn('不代表本工程已完成實際核實',text)
 
 
 if __name__ == '__main__':

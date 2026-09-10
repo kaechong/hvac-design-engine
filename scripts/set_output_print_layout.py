@@ -3,6 +3,7 @@ from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 from lxml import etree as E
 import os
+import json
 
 NS='http://schemas.openxmlformats.org/spreadsheetml/2006/main'
 Q=lambda s:'{'+NS+'}'+s
@@ -52,6 +53,15 @@ def configure(path, ranges, title_rows):
         pos=next((j for j,c in enumerate(sheet) if E.QName(c).localname in later),len(sheet))
         nodes=[E.Element(Q('printOptions'),horizontalCentered='1'),E.Element(Q('pageMargins'),left='0.25',right='0.25',top='0.35',bottom='0.35',header='0.15',footer='0.15'),E.Element(Q('pageSetup'),paperSize='8',orientation='landscape',fitToWidth='1',fitToHeight='0')]
         for j,node in enumerate(nodes):sheet.insert(pos+j,node)
+        index_path=path.parent/'qa/review_print_ranges.json'
+        if path.name=='設計計算表.xlsx' and index_path.exists():
+            blocks=[b for b in json.loads(index_path.read_text(encoding='utf-8')) if b['sheetName']==name]
+            if len(blocks)>1:
+                old=sheet.find(Q('rowBreaks'))
+                if old is not None:sheet.remove(old)
+                breaks=E.Element(Q('rowBreaks'),count=str(len(blocks)-1),manualBreakCount=str(len(blocks)-1))
+                for block in blocks[1:]:E.SubElement(breaks,Q('brk'),id=str(block['start']-1),min='0',max='16383',man='1')
+                sheet.insert(pos+len(nodes),breaks)
         files[target]=E.tostring(sheet,xml_declaration=True,encoding='UTF-8')
     files['xl/workbook.xml']=E.tostring(book,xml_declaration=True,encoding='UTF-8')
     with ZipFile(path,'w',ZIP_DEFLATED) as z:

@@ -12,6 +12,7 @@ await fs.mkdir(outputDir, {recursive: true});
 const wb = Workbook.create();
 const names = ['概覽','建築參數','通風計算','冷負荷計算','系統負荷密度','逐時系統負荷','待覆核事項'];
 const sh = Object.fromEntries(names.map(name => [name, wb.worksheets.add(name)]));
+const reviewRenderRanges = [];
 const font = {name: 'Arial', size: 10, color: '#111111'};
 const navy = '#D9D9D9';
 const pale = '#EEEEEE';
@@ -200,6 +201,83 @@ if(pkg.air_treatment){
  ];
  sh['待覆核事項'].getRange('D13:E13').values=[['已查現有資料庫及關聯原廠型錄，候選及缺項見設備選型依據。','候選已整理']];
 }
+
+// Summary and executable follow-up detail share the same package records.
+// A fixed FOP declaration is never used as evidence of an actual project check.
+if (Array.isArray(pkg.review_actions) && pkg.review_actions.length) {
+ const actions=pkg.review_actions;
+ const requiredFields=['id','item','current_adopted','steps','required_evidence','provisional_action','completion_criteria','calculation_impact','drawing_impact','owner','status','related_ids'];
+ for(const a of actions){
+  for(const key of requiredFields)if(a[key]===undefined)throw new Error(`${a.id||'覆核項目'} 缺少 ${key}`);
+  for(const key of ['steps','required_evidence','completion_criteria','related_ids'])if(!Array.isArray(a[key]))throw new Error(`${a.id} ${key} 必須為列表`);
+ }
+ const summary=sh['待覆核事項'];
+ summary.getRange('A1').values=[['待覆核事項及跟進索引｜'+pkg.version]];
+ summary.getRange('A2').values=[['逐項執行步驟、所需證據及完成條件見「覆核跟進明細」；列出待辦不代表已完成核實。']];
+ summary.getRange('A4:E4').values=[['編號','事項','負責角色','計算及圖則影響／明細位置','實核狀態']];
+ summary.getRange(`A5:E${Math.max(14,actions.length+4)}`).values=Array.from({length:Math.max(10,actions.length)},()=>Array(5).fill(null));
+ const visualHeight=(text,width=63)=>{
+  const lines=String(text??'').split('\n').reduce((sum,line)=>sum+Math.max(1,Math.ceil(Array.from(line).reduce((n,c)=>n+(c.charCodeAt(0)>255?1:0.55),0)/width)),0);
+  return Math.max(30,lines*16+14);
+ };
+ function detailSheet(name,title,subtitle,records,toRows){
+  const s=wb.worksheets.add(name);names.push(name);sh[name]=s;
+  const blocks=records.map(record=>({record,rows:toRows(record)}));
+  const last=4+blocks.reduce((n,b)=>n+b.rows.length+2,0);
+  setup(s,title,subtitle,['核對欄目','執行內容及證據'],[24,105],last);
+  s.getRange('A2:B2').format.wrapText=true;s.getRange('A2:B2').format.rowHeight=42;
+  s.getRange('A4:B4').format.rowHeight=30;
+  let row=5;
+  for(const {record,rows} of blocks){
+   const start=row;
+   s.mergeCells(`A${row}:B${row}`);
+   s.getRange(`A${row}`).values=[[`${record.id}｜${record.item}`]];
+   s.getRange(`A${row}:B${row}`).format.fill=navy;
+   s.getRange(`A${row}:B${row}`).format.font={...font,bold:true};
+   s.getRange(`A${row}:B${row}`).format.rowHeight=visualHeight(record.item,70);
+   row++;
+   for(const [label,value] of rows){
+    s.getRange(`A${row}:B${row}`).values=[[label,value]];
+    s.getRange(`A${row}:B${row}`).format.rowHeight=Math.max(visualHeight(value),visualHeight(label,13));
+    s.getRange(`A${row}`).format.fill=pale;
+    if(label==='實核狀態')s.getRange(`B${row}`).format.fill='#FFF2CC';
+    row++;
+   }
+   reviewRenderRanges.push({sheetName:name,id:record.id,start,end:row-1,range:`A${start}:B${row-1}`});
+   s.getRange(`A${row}:B${row}`).format.rowHeight=14;
+   row++;
+  }
+  return s;
+ }
+ detailSheet('覆核跟進明細','待覆核事項｜執行步驟與完成條件','目前採用值、待取得證據及完成判據分列；按編號逐項跟進。',actions,a=>[
+  ['實核狀態',a.status],['負責角色',a.owner],['目前採用／已知界線',a.current_adopted],
+  ...a.steps.map((v,i)=>[`執行步驟 ${i+1}`,v]),
+  ...a.required_evidence.map((v,i)=>[`所需證據 ${i+1}`,v]),
+  ['證據未齊前處理',a.provisional_action],
+  ...a.completion_criteria.map((v,i)=>[`完成條件 ${i+1}`,v]),
+  ['計算影響',a.calculation_impact],['圖則影響',a.drawing_impact],['關聯事項',a.related_ids.join('、')]
+ ]);
+ for(const [i,a] of actions.entries()){
+  const detail=reviewRenderRanges.find(r=>r.sheetName==='覆核跟進明細'&&r.id===a.id);
+  const impact=`計算：${a.calculation_impact}\n圖則：${a.drawing_impact}\n覆核跟進明細：A${detail.start}:B${detail.end}`;
+  const ownerLines=String(a.owner).split('；').flatMap(part=>Array.from(part).join('').match(/.{1,17}/gu)||['']).join('\n');
+  summary.getRange(`A${i+5}:E${i+5}`).values=[[a.id,a.item,ownerLines,impact,a.status]];
+  summary.getRange(`A${i+5}:E${i+5}`).format.rowHeight=Math.max(90,visualHeight(impact,40));
+ }
+ summary.getRange(`C1:C${actions.length+4}`).format.columnWidth=34;
+ summary.getRange(`D1:D${actions.length+4}`).format.columnWidth=68;
+ const actualChecks=pkg.fop_actual_checks;
+ if(!Array.isArray(actualChecks)||actualChecks.length!==6)throw new Error('第5章須提供六項獨立實核紀錄');
+ for(const check of actualChecks){
+  if(!Array.isArray(check.evidence)||!Array.isArray(check.followup_ids)||!Array.isArray(check.completion_criteria))throw new Error(`${check.id} 缺少證據或完成條件列表`);
+  if(check.status!=='待核實'&&!check.evidence.length)throw new Error(`${check.id} 無本工程證據，不可更改待核實狀態`);
+ }
+ detailSheet('第5章實際核實','第5章｜重要項目實際核實','母本固定文字與本工程實核結果分開；母本預填「是」不構成證據。',actualChecks,c=>[
+  ['實核狀態',c.status],['本工程證據',c.evidence.length?c.evidence.map(e=>typeof e==='string'?e:JSON.stringify(e)).join('\n'):'尚無本工程實核證據'],
+  ['跟進事項',c.followup_ids.join('、')],
+  ...c.completion_criteria.map((v,i)=>[`完成條件 ${i+1}`,v]),['母本原文位置',c.source]
+ ]);
+}
 for (const sheet of Object.values(sh)) sheet.getUsedRange().format.verticalAlignment='center';
 await fs.mkdir(path.join(outputDir,'qa'),{recursive:true});
 wb.recalculate();
@@ -208,6 +286,14 @@ console.log(summary.ndjson);
 const errors = await wb.inspect({kind:'match',searchTerm:'#REF!|#DIV/0!|#VALUE!|#NAME\\?|#N/A|#NUM!|#NULL!|#SPILL!|#CALC!',options:{useRegex:true,maxResults:100},summary:'formula error scan'});
 console.log(errors.ndjson);
 for (const name of names) {
+  const detailRanges=reviewRenderRanges.filter(r=>r.sheetName===name);
+  if(detailRanges.length){
+   for(const item of detailRanges){
+    const image=await wb.render({sheetName:name,range:item.range,scale:1.3,format:'png'});
+    await fs.writeFile(path.join(outputDir,'qa',`${name}_${item.id}.png`),new Uint8Array(await image.arrayBuffer()));
+   }
+   continue;
+  }
   const image = await wb.render({sheetName:name,autoCrop:'all',scale:1.3,format:'png'});
   await fs.writeFile(path.join(outputDir, 'qa', `${name}.png`), new Uint8Array(await image.arrayBuffer()));
   if(name==='配置比較'){
@@ -215,5 +301,6 @@ for (const name of names) {
    for(let start=1;start<=last;start+=14){const part=await wb.render({sheetName:name,range:`A${start}:D${Math.min(start+13,last)}`,scale:1.2,format:'png'});await fs.writeFile(path.join(outputDir,'qa',`配置比較_${start}.png`),new Uint8Array(await part.arrayBuffer()));}
   }
 }
+if(reviewRenderRanges.length)await fs.writeFile(path.join(outputDir,'qa','review_print_ranges.json'),JSON.stringify(reviewRenderRanges,null,2)+'\n');
 const output = await SpreadsheetFile.exportXlsx(wb);
 await output.save(path.join(outputDir,'設計計算表.xlsx'));

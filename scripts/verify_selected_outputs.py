@@ -8,7 +8,7 @@ from xml.etree import ElementTree as ET
 import openpyxl
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=Path(os.environ.get('HVAC_OUTPUT_DIR',ROOT/'outputs/selected_20260908'))
+OUT=Path(os.environ.get('HVAC_OUTPUT_DIR',ROOT/'outputs/drawing_handoff_20260910'))
 W='{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
 
 
@@ -72,7 +72,11 @@ def main():
         spec=importlib.util.spec_from_file_location('selected_narrative',ROOT/'scripts/build_retail_trial_narrative.py')
         mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod);template_path=mod.TEMPLATE
     template=json.loads(template_path.read_text(encoding='utf-8'))
-    check(set(template['fixed_chapters'])=={'2','4','6','7'},'固定章集合改變')
+    check(set(template['fixed_chapters'])=={'2','4','5','6','7'},'固定章集合改變')
+    fixed_table=list(doc.iter(W+'tbl'))[3]
+    fixed_rows=[[''.join(n.text or '' for n in cell.iter(W+'t')) for cell in row.findall(W+'tc')] for row in fixed_table.findall(W+'tr')]
+    check(fixed_rows==template['fixed_tables']['3']['rows'],'第5章母本固定表格不一致')
+    check('本表為標準核實表模板' in word_text and '不代表本工程已完成實際核實' in word_text,'固定模板與實際核實狀態未分開')
     for chapter in template['fixed_chapters'].values():
         for p in chapter:check(p['text'] in word_text,f'固定原文缺漏：{p["paragraph_index"]}')
     expected={e['id'] for e in package['equipment']}
